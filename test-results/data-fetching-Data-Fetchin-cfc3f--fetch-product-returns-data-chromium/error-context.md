@@ -1,0 +1,721 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - generic [ref=e8]:
+          - img [ref=e10]
+          - generic [ref=e13]:
+            - heading "Maria Havens Quick POS" [level=1] [ref=e14]
+            - paragraph [ref=e15]: No Login Required - PIN Authentication
+        - generic [ref=e16]:
+          - generic [ref=e17]:
+            - img [ref=e18]
+            - text: 12:10 pm
+          - generic [ref=e22]:
+            - generic [ref=e23]: Quick Access Mode
+            - generic [ref=e24]: Select waiter at checkout
+          - button "Exit" [ref=e25] [cursor=pointer]:
+            - img [ref=e26]
+            - generic [ref=e29]: Exit
+      - button "Search products, staff, inventory..." [ref=e31] [cursor=pointer]:
+        - img [ref=e32]
+        - generic [ref=e35]: Search products, staff, inventory...
+  - generic [ref=e36]:
+    - generic [ref=e37]:
+      - generic [ref=e38]:
+        - generic [ref=e39]:
+          - button "Dine In" [ref=e40] [cursor=pointer]
+          - button "Takeaway" [ref=e41] [cursor=pointer]
+          - button "Delivery" [ref=e42] [cursor=pointer]
+          - button "Room Service" [ref=e43] [cursor=pointer]
+        - generic [ref=e44]:
+          - button "Menu" [ref=e45] [cursor=pointer]:
+            - img [ref=e46]
+          - button "Bar Sales (Wine)" [ref=e47] [cursor=pointer]:
+            - img [ref=e48]
+          - button "Rooms" [ref=e50] [cursor=pointer]:
+            - img [ref=e51]
+      - generic [ref=e55]:
+        - textbox "Search bar items..." [ref=e57]
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - generic [ref=e60]:
+              - img [ref=e61]
+              - generic [ref=e63]: 0 unit
+              - generic [ref=e65]: Out of Stock
+            - generic [ref=e66]:
+              - heading "4TH STREET 250ML" [level=3] [ref=e67]
+              - paragraph [ref=e68]: unit
+              - generic [ref=e69]:
+                - generic [ref=e70]: KES 0
+                - button "Out of stock" [disabled] [ref=e71]:
+                  - img [ref=e72]
+          - generic [ref=e73]:
+            - generic [ref=e74]:
+              - img [ref=e75]
+              - generic [ref=e77]: 0 unit
+              - generic [ref=e79]: Out of Stock
+            - generic [ref=e80]:
+              - heading "4TH STREET (SWEET RED) 750ML" [level=3] [ref=e81]
+              - paragraph [ref=e82]: unit
+              - generic [ref=e83]:
+                - generic [ref=e84]: KES 0
+                - button "Out of stock" [disabled] [ref=e85]:
+                  - img [ref=e86]
+          - generic [ref=e87]:
+            - generic [ref=e88]:
+              - img [ref=e89]
+              - generic [ref=e91]: 0 unit
+              - generic [ref=e93]: Out of Stock
+            - generic [ref=e94]:
+              - heading "4TH STREET (SWEET ROSE) 750ML" [level=3] [ref=e95]
+              - paragraph [ref=e96]: unit
+              - generic [ref=e97]:
+                - generic [ref=e98]: KES 0
+                - button "Out of stock" [disabled] [ref=e99]:
+                  - img [ref=e100]
+          - generic [ref=e101]:
+            - generic [ref=e102]:
+              - img [ref=e103]
+              - generic [ref=e105]: 0 unit
+              - generic [ref=e107]: Out of Stock
+            - generic [ref=e108]:
+              - heading "4TH STREET (SWEET WHITE) 750ML" [level=3] [ref=e109]
+              - paragraph [ref=e110]: unit
+              - generic [ref=e111]:
+                - generic [ref=e112]: KES 0
+                - button "Out of stock" [disabled] [ref=e113]:
+                  - img [ref=e114]
+          - generic [ref=e115]:
+            - generic [ref=e116]:
+              - img [ref=e117]
+              - generic [ref=e119]: 0 unit
+              - generic [ref=e121]: Out of Stock
+            - generic [ref=e122]:
+              - heading "ANY GLASS" [level=3] [ref=e123]
+              - paragraph [ref=e124]: unit
+              - generic [ref=e125]:
+                - generic [ref=e126]: KES 0
+                - button "Out of stock" [disabled] [ref=e127]:
+                  - img [ref=e128]
+          - generic [ref=e129] [cursor=pointer]:
+            - generic [ref=e130]:
+              - img [ref=e131]
+              - generic [ref=e133]: 1 unit
+            - generic [ref=e134]:
+              - heading "BALOZI" [level=3] [ref=e135]
+              - paragraph [ref=e136]: unit
+              - generic [ref=e137]:
+                - generic [ref=e138]: KES 0
+                - button "Add to order" [ref=e139]:
+                  - img [ref=e140]
+          - generic [ref=e141]:
+            - generic [ref=e142]:
+              - img [ref=e143]
+              - generic [ref=e145]: 0 unit
+              - generic [ref=e147]: Out of Stock
+            - generic [ref=e148]:
+              - heading "BEEFEATER 750ML" [level=3] [ref=e149]
+              - paragraph [ref=e150]: unit
+              - generic [ref=e151]:
+                - generic [ref=e152]: KES 0
+                - button "Out of stock" [disabled] [ref=e153]:
+                  - img [ref=e154]
+          - generic [ref=e155]:
+            - generic [ref=e156]:
+              - img [ref=e157]
+              - generic [ref=e159]: 0 unit
+              - generic [ref=e161]: Out of Stock
+            - generic [ref=e162]:
+              - heading "BEEFEATER SHOT" [level=3] [ref=e163]
+              - paragraph [ref=e164]: unit
+              - generic [ref=e165]:
+                - generic [ref=e166]: KES 0
+                - button "Out of stock" [disabled] [ref=e167]:
+                  - img [ref=e168]
+          - generic [ref=e169] [cursor=pointer]:
+            - generic [ref=e170]:
+              - img [ref=e171]
+              - generic [ref=e173]: 1 unit
+            - generic [ref=e174]:
+              - heading "BOMBAY 750ML" [level=3] [ref=e175]
+              - paragraph [ref=e176]: unit
+              - generic [ref=e177]:
+                - generic [ref=e178]: KES 0
+                - button "Add to order" [ref=e179]:
+                  - img [ref=e180]
+          - generic [ref=e181]:
+            - generic [ref=e182]:
+              - img [ref=e183]
+              - generic [ref=e185]: 0 unit
+              - generic [ref=e187]: Out of Stock
+            - generic [ref=e188]:
+              - heading "BOMBAY SHOT" [level=3] [ref=e189]
+              - paragraph [ref=e190]: unit
+              - generic [ref=e191]:
+                - generic [ref=e192]: KES 0
+                - button "Out of stock" [disabled] [ref=e193]:
+                  - img [ref=e194]
+          - generic [ref=e195] [cursor=pointer]:
+            - generic [ref=e196]:
+              - img [ref=e197]
+              - generic [ref=e199]: 1 unit
+            - generic [ref=e200]:
+              - heading "CELLAR CASK (SWEET RED) 750ML" [level=3] [ref=e201]
+              - paragraph [ref=e202]: unit
+              - generic [ref=e203]:
+                - generic [ref=e204]: KES 0
+                - button "Add to order" [ref=e205]:
+                  - img [ref=e206]
+          - generic [ref=e207] [cursor=pointer]:
+            - generic [ref=e208]:
+              - img [ref=e209]
+              - generic [ref=e211]: 1 unit
+            - generic [ref=e212]:
+              - heading "CELLAR CASK (SWEET ROSE) 750ML" [level=3] [ref=e213]
+              - paragraph [ref=e214]: unit
+              - generic [ref=e215]:
+                - generic [ref=e216]: KES 0
+                - button "Add to order" [ref=e217]:
+                  - img [ref=e218]
+          - generic [ref=e219] [cursor=pointer]:
+            - generic [ref=e220]:
+              - img [ref=e221]
+              - generic [ref=e223]: 2 unit
+            - generic [ref=e224]:
+              - heading "CELLAR CASK (SWEET WHITE) 750ML" [level=3] [ref=e225]
+              - paragraph [ref=e226]: unit
+              - generic [ref=e227]:
+                - generic [ref=e228]: KES 0
+                - button "Add to order" [ref=e229]:
+                  - img [ref=e230]
+          - generic [ref=e231] [cursor=pointer]:
+            - generic [ref=e232]:
+              - img [ref=e233]
+              - generic [ref=e235]: 11 unit
+            - generic [ref=e236]:
+              - heading "ENERGY DRINK 330ML" [level=3] [ref=e237]
+              - paragraph [ref=e238]: unit
+              - generic [ref=e239]:
+                - generic [ref=e240]: KES 0
+                - button "Add to order" [ref=e241]:
+                  - img [ref=e242]
+          - generic [ref=e243] [cursor=pointer]:
+            - generic [ref=e244]:
+              - img [ref=e245]
+              - generic [ref=e247]: 7 unit
+            - generic [ref=e248]:
+              - heading "ENERGY DRINK 500ML" [level=3] [ref=e249]
+              - paragraph [ref=e250]: unit
+              - generic [ref=e251]:
+                - generic [ref=e252]: KES 0
+                - button "Add to order" [ref=e253]:
+                  - img [ref=e254]
+          - generic [ref=e255]:
+            - generic [ref=e256]:
+              - img [ref=e257]
+              - generic [ref=e259]: 0 unit
+              - generic [ref=e261]: Out of Stock
+            - generic [ref=e262]:
+              - heading "FOUR COUSINS (SWEET RED) 750ML" [level=3] [ref=e263]
+              - paragraph [ref=e264]: unit
+              - generic [ref=e265]:
+                - generic [ref=e266]: KES 0
+                - button "Out of stock" [disabled] [ref=e267]:
+                  - img [ref=e268]
+          - generic [ref=e269] [cursor=pointer]:
+            - generic [ref=e270]:
+              - img [ref=e271]
+              - generic [ref=e273]: 2 unit
+            - generic [ref=e274]:
+              - heading "FOUR COUSINS (SWEET ROSE) 750ML" [level=3] [ref=e275]
+              - paragraph [ref=e276]: unit
+              - generic [ref=e277]:
+                - generic [ref=e278]: KES 0
+                - button "Add to order" [ref=e279]:
+                  - img [ref=e280]
+          - generic [ref=e281] [cursor=pointer]:
+            - generic [ref=e282]:
+              - img [ref=e283]
+              - generic [ref=e285]: 2 unit
+            - generic [ref=e286]:
+              - heading "FOUR COUSINS (SWEET WHITE) 750ML" [level=3] [ref=e287]
+              - paragraph [ref=e288]: unit
+              - generic [ref=e289]:
+                - generic [ref=e290]: KES 0
+                - button "Add to order" [ref=e291]:
+                  - img [ref=e292]
+          - generic [ref=e293]:
+            - generic [ref=e294]:
+              - img [ref=e295]
+              - generic [ref=e297]: 0 unit
+              - generic [ref=e299]: Out of Stock
+            - generic [ref=e300]:
+              - heading "FRESH JUICE" [level=3] [ref=e301]
+              - paragraph [ref=e302]: unit
+              - generic [ref=e303]:
+                - generic [ref=e304]: KES 0
+                - button "Out of stock" [disabled] [ref=e305]:
+                  - img [ref=e306]
+          - generic [ref=e307] [cursor=pointer]:
+            - generic [ref=e308]:
+              - img [ref=e309]
+              - generic [ref=e311]: 6 unit
+            - generic [ref=e312]:
+              - heading "GILBEYS 250ML" [level=3] [ref=e313]
+              - paragraph [ref=e314]: unit
+              - generic [ref=e315]:
+                - generic [ref=e316]: KES 0
+                - button "Add to order" [ref=e317]:
+                  - img [ref=e318]
+          - generic [ref=e319] [cursor=pointer]:
+            - generic [ref=e320]:
+              - img [ref=e321]
+              - generic [ref=e323]: 3 unit
+            - generic [ref=e324]:
+              - heading "GILBEYS 350ML" [level=3] [ref=e325]
+              - paragraph [ref=e326]: unit
+              - generic [ref=e327]:
+                - generic [ref=e328]: KES 0
+                - button "Add to order" [ref=e329]:
+                  - img [ref=e330]
+          - generic [ref=e331] [cursor=pointer]:
+            - generic [ref=e332]:
+              - img [ref=e333]
+              - generic [ref=e335]: 3 unit
+            - generic [ref=e336]:
+              - heading "GILBEYS 750ML" [level=3] [ref=e337]
+              - paragraph [ref=e338]: unit
+              - generic [ref=e339]:
+                - generic [ref=e340]: KES 0
+                - button "Add to order" [ref=e341]:
+                  - img [ref=e342]
+          - generic [ref=e343]:
+            - generic [ref=e344]:
+              - img [ref=e345]
+              - generic [ref=e347]: 0 unit
+              - generic [ref=e349]: Out of Stock
+            - generic [ref=e350]:
+              - heading "GILBEYS SHOT" [level=3] [ref=e351]
+              - paragraph [ref=e352]: unit
+              - generic [ref=e353]:
+                - generic [ref=e354]: KES 0
+                - button "Out of stock" [disabled] [ref=e355]:
+                  - img [ref=e356]
+          - generic [ref=e357] [cursor=pointer]:
+            - generic [ref=e358]:
+              - img [ref=e359]
+              - generic [ref=e361]: 5 unit
+            - generic [ref=e362]:
+              - heading "GORDONS 250ML" [level=3] [ref=e363]
+              - paragraph [ref=e364]: unit
+              - generic [ref=e365]:
+                - generic [ref=e366]: KES 0
+                - button "Add to order" [ref=e367]:
+                  - img [ref=e368]
+          - generic [ref=e369] [cursor=pointer]:
+            - generic [ref=e370]:
+              - img [ref=e371]
+              - generic [ref=e373]: 2 unit
+            - generic [ref=e374]:
+              - heading "GORDONS 350ML" [level=3] [ref=e375]
+              - paragraph [ref=e376]: unit
+              - generic [ref=e377]:
+                - generic [ref=e378]: KES 0
+                - button "Add to order" [ref=e379]:
+                  - img [ref=e380]
+          - generic [ref=e381] [cursor=pointer]:
+            - generic [ref=e382]:
+              - img [ref=e383]
+              - generic [ref=e385]: 1 unit
+            - generic [ref=e386]:
+              - heading "GORDONS 750ML" [level=3] [ref=e387]
+              - paragraph [ref=e388]: unit
+              - generic [ref=e389]:
+                - generic [ref=e390]: KES 0
+                - button "Add to order" [ref=e391]:
+                  - img [ref=e392]
+          - generic [ref=e393]:
+            - generic [ref=e394]:
+              - img [ref=e395]
+              - generic [ref=e397]: 0 unit
+              - generic [ref=e399]: Out of Stock
+            - generic [ref=e400]:
+              - heading "GORDONS SHOT" [level=3] [ref=e401]
+              - paragraph [ref=e402]: unit
+              - generic [ref=e403]:
+                - generic [ref=e404]: KES 0
+                - button "Out of stock" [disabled] [ref=e405]:
+                  - img [ref=e406]
+          - generic [ref=e407] [cursor=pointer]:
+            - generic [ref=e408]:
+              - img [ref=e409]
+              - generic [ref=e411]: 6 unit
+            - generic [ref=e412]:
+              - heading "GUINESS" [level=3] [ref=e413]
+              - paragraph [ref=e414]: unit
+              - generic [ref=e415]:
+                - generic [ref=e416]: KES 0
+                - button "Add to order" [ref=e417]:
+                  - img [ref=e418]
+          - generic [ref=e419] [cursor=pointer]:
+            - generic [ref=e420]:
+              - img [ref=e421]
+              - generic [ref=e423]: 6 unit
+            - generic [ref=e424]:
+              - heading "HEINEKEN" [level=3] [ref=e425]
+              - paragraph [ref=e426]: unit
+              - generic [ref=e427]:
+                - generic [ref=e428]: KES 0
+                - button "Add to order" [ref=e429]:
+                  - img [ref=e430]
+          - generic [ref=e431] [cursor=pointer]:
+            - generic [ref=e432]:
+              - img [ref=e433]
+              - generic [ref=e435]: 2 unit
+            - generic [ref=e436]:
+              - heading "KWV 350ML" [level=3] [ref=e437]
+              - paragraph [ref=e438]: unit
+              - generic [ref=e439]:
+                - generic [ref=e440]: KES 0
+                - button "Add to order" [ref=e441]:
+                  - img [ref=e442]
+          - generic [ref=e443] [cursor=pointer]:
+            - generic [ref=e444]:
+              - img [ref=e445]
+              - generic [ref=e447]: 2 unit
+            - generic [ref=e448]:
+              - heading "KWV 750ML" [level=3] [ref=e449]
+              - paragraph [ref=e450]: unit
+              - generic [ref=e451]:
+                - generic [ref=e452]: KES 0
+                - button "Add to order" [ref=e453]:
+                  - img [ref=e454]
+          - generic [ref=e455]:
+            - generic [ref=e456]:
+              - img [ref=e457]
+              - generic [ref=e459]: 0 unit
+              - generic [ref=e461]: Out of Stock
+            - generic [ref=e462]:
+              - heading "KWV SHOT" [level=3] [ref=e463]
+              - paragraph [ref=e464]: unit
+              - generic [ref=e465]:
+                - generic [ref=e466]: KES 0
+                - button "Out of stock" [disabled] [ref=e467]:
+                  - img [ref=e468]
+          - generic [ref=e469] [cursor=pointer]:
+            - generic [ref=e470]:
+              - img [ref=e471]
+              - generic [ref=e473]: 3 unit
+            - generic [ref=e474]:
+              - heading "NEDERBURG 250ML" [level=3] [ref=e475]
+              - paragraph [ref=e476]: unit
+              - generic [ref=e477]:
+                - generic [ref=e478]: KES 0
+                - button "Add to order" [ref=e479]:
+                  - img [ref=e480]
+          - generic [ref=e481]:
+            - generic [ref=e482]:
+              - img [ref=e483]
+              - generic [ref=e485]: 0 unit
+              - generic [ref=e487]: Out of Stock
+            - generic [ref=e488]:
+              - heading "NOVAL G/BERRY 500ML" [level=3] [ref=e489]
+              - paragraph [ref=e490]: unit
+              - generic [ref=e491]:
+                - generic [ref=e492]: KES 0
+                - button "Out of stock" [disabled] [ref=e493]:
+                  - img [ref=e494]
+          - generic [ref=e495] [cursor=pointer]:
+            - generic [ref=e496]:
+              - img [ref=e497]
+              - generic [ref=e499]: 2 unit
+            - generic [ref=e500]:
+              - heading "NOVAL ORANGE 500ML" [level=3] [ref=e501]
+              - paragraph [ref=e502]: unit
+              - generic [ref=e503]:
+                - generic [ref=e504]: KES 0
+                - button "Add to order" [ref=e505]:
+                  - img [ref=e506]
+          - generic [ref=e507] [cursor=pointer]:
+            - generic [ref=e508]:
+              - img [ref=e509]
+              - generic [ref=e511]: 3 unit
+            - generic [ref=e512]:
+              - heading "NOVAL P/BERRY 500ML" [level=3] [ref=e513]
+              - paragraph [ref=e514]: unit
+              - generic [ref=e515]:
+                - generic [ref=e516]: KES 0
+                - button "Add to order" [ref=e517]:
+                  - img [ref=e518]
+          - generic [ref=e519] [cursor=pointer]:
+            - generic [ref=e520]:
+              - img [ref=e521]
+              - generic [ref=e523]: 6 unit
+            - generic [ref=e524]:
+              - heading "PILSNER" [level=3] [ref=e525]
+              - paragraph [ref=e526]: unit
+              - generic [ref=e527]:
+                - generic [ref=e528]: KES 0
+                - button "Add to order" [ref=e529]:
+                  - img [ref=e530]
+          - generic [ref=e531] [cursor=pointer]:
+            - generic [ref=e532]:
+              - img [ref=e533]
+              - generic [ref=e535]: 4 unit
+            - generic [ref=e536]:
+              - heading "RICHOT 250ML" [level=3] [ref=e537]
+              - paragraph [ref=e538]: unit
+              - generic [ref=e539]:
+                - generic [ref=e540]: KES 0
+                - button "Add to order" [ref=e541]:
+                  - img [ref=e542]
+          - generic [ref=e543] [cursor=pointer]:
+            - generic [ref=e544]:
+              - img [ref=e545]
+              - generic [ref=e547]: 1 unit
+            - generic [ref=e548]:
+              - heading "RICHOT 350ML" [level=3] [ref=e549]
+              - paragraph [ref=e550]: unit
+              - generic [ref=e551]:
+                - generic [ref=e552]: KES 0
+                - button "Add to order" [ref=e553]:
+                  - img [ref=e554]
+          - generic [ref=e555] [cursor=pointer]:
+            - generic [ref=e556]:
+              - img [ref=e557]
+              - generic [ref=e559]: 2 unit
+            - generic [ref=e560]:
+              - heading "RICHOT 750ML" [level=3] [ref=e561]
+              - paragraph [ref=e562]: unit
+              - generic [ref=e563]:
+                - generic [ref=e564]: KES 0
+                - button "Add to order" [ref=e565]:
+                  - img [ref=e566]
+          - generic [ref=e567]:
+            - generic [ref=e568]:
+              - img [ref=e569]
+              - generic [ref=e571]: 0 unit
+              - generic [ref=e573]: Out of Stock
+            - generic [ref=e574]:
+              - heading "RICHOT SHOT" [level=3] [ref=e575]
+              - paragraph [ref=e576]: unit
+              - generic [ref=e577]:
+                - generic [ref=e578]: KES 0
+                - button "Out of stock" [disabled] [ref=e579]:
+                  - img [ref=e580]
+          - generic [ref=e581] [cursor=pointer]:
+            - generic [ref=e582]:
+              - img [ref=e583]
+              - generic [ref=e585]: 6 unit
+            - generic [ref=e586]:
+              - heading "SMIRNOFF BLACK" [level=3] [ref=e587]
+              - paragraph [ref=e588]: unit
+              - generic [ref=e589]:
+                - generic [ref=e590]: KES 0
+                - button "Add to order" [ref=e591]:
+                  - img [ref=e592]
+          - generic [ref=e593] [cursor=pointer]:
+            - generic [ref=e594]:
+              - img [ref=e595]
+              - generic [ref=e597]: 6 unit
+            - generic [ref=e598]:
+              - heading "SMIRNOFF GUARANA" [level=3] [ref=e599]
+              - paragraph [ref=e600]: unit
+              - generic [ref=e601]:
+                - generic [ref=e602]: KES 0
+                - button "Add to order" [ref=e603]:
+                  - img [ref=e604]
+          - generic [ref=e605] [cursor=pointer]:
+            - generic [ref=e606]:
+              - img [ref=e607]
+              - generic [ref=e609]: 6 unit
+            - generic [ref=e610]:
+              - heading "SNAPP" [level=3] [ref=e611]
+              - paragraph [ref=e612]: unit
+              - generic [ref=e613]:
+                - generic [ref=e614]: KES 0
+                - button "Add to order" [ref=e615]:
+                  - img [ref=e616]
+          - generic [ref=e617] [cursor=pointer]:
+            - generic [ref=e618]:
+              - img [ref=e619]
+              - generic [ref=e621]: 12 unit
+            - generic [ref=e622]:
+              - heading "SODA 300ML" [level=3] [ref=e623]
+              - paragraph [ref=e624]: unit
+              - generic [ref=e625]:
+                - generic [ref=e626]: KES 0
+                - button "Add to order" [ref=e627]:
+                  - img [ref=e628]
+          - generic [ref=e629] [cursor=pointer]:
+            - generic [ref=e630]:
+              - img [ref=e631]
+              - generic [ref=e633]: 6 unit
+            - generic [ref=e634]:
+              - heading "SODA 500ML" [level=3] [ref=e635]
+              - paragraph [ref=e636]: unit
+              - generic [ref=e637]:
+                - generic [ref=e638]: KES 0
+                - button "Add to order" [ref=e639]:
+                  - img [ref=e640]
+          - generic [ref=e641] [cursor=pointer]:
+            - generic [ref=e642]:
+              - img [ref=e643]
+              - generic [ref=e645]: 1 unit
+            - generic [ref=e646]:
+              - heading "TANQUERAY 750ML" [level=3] [ref=e647]
+              - paragraph [ref=e648]: unit
+              - generic [ref=e649]:
+                - generic [ref=e650]: KES 0
+                - button "Add to order" [ref=e651]:
+                  - img [ref=e652]
+          - generic [ref=e653]:
+            - generic [ref=e654]:
+              - img [ref=e655]
+              - generic [ref=e657]: 0 unit
+              - generic [ref=e659]: Out of Stock
+            - generic [ref=e660]:
+              - heading "TANQUERAY SHOT" [level=3] [ref=e661]
+              - paragraph [ref=e662]: unit
+              - generic [ref=e663]:
+                - generic [ref=e664]: KES 0
+                - button "Out of stock" [disabled] [ref=e665]:
+                  - img [ref=e666]
+          - generic [ref=e667] [cursor=pointer]:
+            - generic [ref=e668]:
+              - img [ref=e669]
+              - generic [ref=e671]: 6 unit
+            - generic [ref=e672]:
+              - heading "TUSKER CIDER" [level=3] [ref=e673]
+              - paragraph [ref=e674]: unit
+              - generic [ref=e675]:
+                - generic [ref=e676]: KES 0
+                - button "Add to order" [ref=e677]:
+                  - img [ref=e678]
+          - generic [ref=e679] [cursor=pointer]:
+            - generic [ref=e680]:
+              - img [ref=e681]
+              - generic [ref=e683]: 10 unit
+            - generic [ref=e684]:
+              - heading "TUSKER LAGER" [level=3] [ref=e685]
+              - paragraph [ref=e686]: unit
+              - generic [ref=e687]:
+                - generic [ref=e688]: KES 0
+                - button "Add to order" [ref=e689]:
+                  - img [ref=e690]
+          - generic [ref=e691] [cursor=pointer]:
+            - generic [ref=e692]:
+              - img [ref=e693]
+              - generic [ref=e695]: 6 unit
+            - generic [ref=e696]:
+              - heading "TUSKER LITE" [level=3] [ref=e697]
+              - paragraph [ref=e698]: unit
+              - generic [ref=e699]:
+                - generic [ref=e700]: KES 0
+                - button "Add to order" [ref=e701]:
+                  - img [ref=e702]
+          - generic [ref=e703] [cursor=pointer]:
+            - generic [ref=e704]:
+              - img [ref=e705]
+              - generic [ref=e707]: 6 unit
+            - generic [ref=e708]:
+              - heading "TUSKER MALT" [level=3] [ref=e709]
+              - paragraph [ref=e710]: unit
+              - generic [ref=e711]:
+                - generic [ref=e712]: KES 0
+                - button "Add to order" [ref=e713]:
+                  - img [ref=e714]
+          - generic [ref=e715] [cursor=pointer]:
+            - generic [ref=e716]:
+              - img [ref=e717]
+              - generic [ref=e719]: 2 unit
+            - generic [ref=e720]:
+              - heading "VAT 69 250ML" [level=3] [ref=e721]
+              - paragraph [ref=e722]: unit
+              - generic [ref=e723]:
+                - generic [ref=e724]: KES 0
+                - button "Add to order" [ref=e725]:
+                  - img [ref=e726]
+          - generic [ref=e727] [cursor=pointer]:
+            - generic [ref=e728]:
+              - img [ref=e729]
+              - generic [ref=e731]: 1 unit
+            - generic [ref=e732]:
+              - heading "VAT 69 350ML" [level=3] [ref=e733]
+              - paragraph [ref=e734]: unit
+              - generic [ref=e735]:
+                - generic [ref=e736]: KES 0
+                - button "Add to order" [ref=e737]:
+                  - img [ref=e738]
+          - generic [ref=e739] [cursor=pointer]:
+            - generic [ref=e740]:
+              - img [ref=e741]
+              - generic [ref=e743]: 1 unit
+            - generic [ref=e744]:
+              - heading "VAT 69 750ML" [level=3] [ref=e745]
+              - paragraph [ref=e746]: unit
+              - generic [ref=e747]:
+                - generic [ref=e748]: KES 0
+                - button "Add to order" [ref=e749]:
+                  - img [ref=e750]
+          - generic [ref=e751]:
+            - generic [ref=e752]:
+              - img [ref=e753]
+              - generic [ref=e755]: 0 unit
+              - generic [ref=e757]: Out of Stock
+            - generic [ref=e758]:
+              - heading "VAT 69 SHOT" [level=3] [ref=e759]
+              - paragraph [ref=e760]: unit
+              - generic [ref=e761]:
+                - generic [ref=e762]: KES 0
+                - button "Out of stock" [disabled] [ref=e763]:
+                  - img [ref=e764]
+          - generic [ref=e765] [cursor=pointer]:
+            - generic [ref=e766]:
+              - img [ref=e767]
+              - generic [ref=e769]: 10 unit
+            - generic [ref=e770]:
+              - heading "WATER 500ML" [level=3] [ref=e771]
+              - paragraph [ref=e772]: unit
+              - generic [ref=e773]:
+                - generic [ref=e774]: KES 0
+                - button "Add to order" [ref=e775]:
+                  - img [ref=e776]
+          - generic [ref=e777] [cursor=pointer]:
+            - generic [ref=e778]:
+              - img [ref=e779]
+              - generic [ref=e781]: 6 unit
+            - generic [ref=e782]:
+              - heading "WHITE CAP LAGER" [level=3] [ref=e783]
+              - paragraph [ref=e784]: unit
+              - generic [ref=e785]:
+                - generic [ref=e786]: KES 0
+                - button "Add to order" [ref=e787]:
+                  - img [ref=e788]
+          - generic [ref=e789] [cursor=pointer]:
+            - generic [ref=e790]:
+              - img [ref=e791]
+              - generic [ref=e793]: 6 unit
+            - generic [ref=e794]:
+              - heading "WHITE CAP LITE" [level=3] [ref=e795]
+              - paragraph [ref=e796]: unit
+              - generic [ref=e797]:
+                - generic [ref=e798]: KES 0
+                - button "Add to order" [ref=e799]:
+                  - img [ref=e800]
+        - paragraph [ref=e802]:
+          - text: 💡
+          - strong [ref=e803]: "Tip:"
+          - text: Add bar items to your order. PIN validation will be required at checkout.
+    - generic [ref=e805]:
+      - generic [ref=e806]:
+        - heading "Current Order" [level=2] [ref=e807]
+        - paragraph [ref=e808]: "Order Type: dine in"
+      - generic [ref=e810]:
+        - img [ref=e811]
+        - paragraph [ref=e816]: Add items from the menu to start an order.
+```

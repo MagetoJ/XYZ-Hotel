@@ -1,0 +1,53 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e5]:
+    - img [ref=e7]
+    - generic [ref=e10]:
+      - heading "App Update Available" [level=4] [ref=e11]
+      - paragraph [ref=e12]: A new version of Maria Havens POS is available. Update now for the latest features and improvements.
+      - generic [ref=e13]:
+        - button "Update Now" [ref=e14] [cursor=pointer]:
+          - img [ref=e15]
+          - text: Update Now
+        - button "Later" [ref=e20] [cursor=pointer]
+    - button "Close notification" [ref=e21] [cursor=pointer]:
+      - img [ref=e22]
+  - generic [ref=e26]:
+    - generic [ref=e27]:
+      - heading "Maria Havens" [level=1] [ref=e32]
+      - paragraph [ref=e33]: Point of Sale System
+    - generic [ref=e34]:
+      - heading "Staff Login" [level=2] [ref=e35]
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - generic [ref=e38]: Username
+          - generic [ref=e39]:
+            - img [ref=e40]
+            - textbox "Username" [ref=e43]:
+              - /placeholder: Enter your username
+              - text: Kizito
+        - generic [ref=e44]:
+          - generic [ref=e45]: Password
+          - generic [ref=e46]:
+            - img [ref=e47]
+            - textbox "Password" [ref=e50]:
+              - /placeholder: Enter your password
+              - text: admin
+            - button [ref=e51] [cursor=pointer]:
+              - img [ref=e52]
+        - generic [ref=e55]:
+          - img [ref=e56]
+          - generic [ref=e58]: ❌ Incorrect username or password. Please try again.
+        - button "Login" [ref=e59] [cursor=pointer]
+        - button "Forgot Password?" [ref=e61] [cursor=pointer]:
+          - img [ref=e62]
+          - text: Forgot Password?
+      - generic [ref=e65]:
+        - generic [ref=e70]: or
+        - button "Quick POS Access" [ref=e71] [cursor=pointer]:
+          - img [ref=e72]
+          - text: Quick POS Access
+        - paragraph [ref=e77]: Direct access for waiters - PIN required for orders
+```

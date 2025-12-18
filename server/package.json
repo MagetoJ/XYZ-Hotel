@@ -1,0 +1,52 @@
+{
+  "name": "maria-havens-pos-backend",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon --watch src --exec ts-node src/index.ts",
+    "migrate:dev": "cross-env NODE_ENV=development npx knex migrate:latest",
+    "migrate:prod": "cross-env NODE_ENV=production npx knex migrate:latest",
+    "seed:dev": "cross-env NODE_ENV=development npx knex seed:run",
+    "seed:prod": "cross-env NODE_ENV=production npx knex seed:run",
+    "db:reset:dev": "cross-env NODE_ENV=development npx knex migrate:rollback --all && npx knex migrate:latest && npx knex seed:run",
+    "update:buying-prices": "node update_buying_prices.js",
+    "setup:buying-prices": "node set_and_reduce_buying_prices.js"
+  },
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.15",
+    "@types/express": "^4.17.20",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^20.9.0",
+    "@types/nodemailer": "^7.0.2",
+    "@types/pg": "^8.10.7",
+    "@types/ws": "^8.5.8",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.2.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.0.1",
+    "multer": "^2.0.2",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^7.0.9",
+    "pdf-parse": "^2.4.5",
+    "pg": "^8.16.3",
+    "resend": "^6.6.0",
+    "sqlite3": "^5.1.7",
+    "typescript": "^5.9.3",
+    "ws": "^8.14.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1"
+  }
+}

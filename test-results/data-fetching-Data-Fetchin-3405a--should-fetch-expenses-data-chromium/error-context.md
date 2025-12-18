@@ -1,0 +1,101 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e5]:
+    - img [ref=e7]
+    - generic [ref=e10]:
+      - heading "App Update Available" [level=4] [ref=e11]
+      - paragraph [ref=e12]: A new version of Maria Havens POS is available. Update now for the latest features and improvements.
+      - generic [ref=e13]:
+        - button "Update Now" [ref=e14] [cursor=pointer]:
+          - img [ref=e15]
+          - text: Update Now
+        - button "Later" [ref=e20] [cursor=pointer]
+    - button "Close notification" [ref=e21] [cursor=pointer]:
+      - img [ref=e22]
+  - generic [ref=e25]:
+    - banner [ref=e26]:
+      - generic [ref=e27]:
+        - generic [ref=e34]:
+          - heading "Maria Havens POS" [level=1] [ref=e35]
+          - paragraph [ref=e36]: Hotel & Restaurant System
+        - button "Search anything..." [ref=e38] [cursor=pointer]:
+          - img [ref=e39]
+          - generic [ref=e42]: Search anything...
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - img [ref=e45]
+            - text: 12:10 pm
+          - generic [ref=e48]:
+            - img [ref=e49]
+            - generic [ref=e52]:
+              - generic [ref=e53]: Kizito
+              - generic [ref=e54]: Administrator
+          - button "Logout" [ref=e55] [cursor=pointer]:
+            - img [ref=e56]
+            - generic [ref=e59]: Logout
+    - generic [ref=e60]:
+      - complementary [ref=e61]:
+        - generic [ref=e62]:
+          - generic [ref=e64]:
+            - heading "Admin Dashboard" [level=2] [ref=e65]
+            - paragraph [ref=e66]: Logged in as Kizito
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - navigation [ref=e69]:
+                - button "Overview" [ref=e70] [cursor=pointer]:
+                  - img [ref=e71]
+                  - generic [ref=e73]: Overview
+                - button "Global Search" [ref=e74] [cursor=pointer]:
+                  - img [ref=e75]
+                  - generic [ref=e78]: Global Search
+                - button "Staff Management" [ref=e79] [cursor=pointer]:
+                  - img [ref=e80]
+                  - generic [ref=e85]: Staff Management
+                - button "Shift Management" [ref=e86] [cursor=pointer]:
+                  - img [ref=e87]
+                  - generic [ref=e90]: Shift Management
+                - button "Performance" [ref=e91] [cursor=pointer]:
+                  - img [ref=e92]
+                  - generic [ref=e95]: Performance
+                - button "Inventory" [ref=e96] [cursor=pointer]:
+                  - img [ref=e97]
+                  - generic [ref=e101]: Inventory
+                - button "Menu Management" [ref=e102] [cursor=pointer]:
+                  - img [ref=e103]
+                  - generic [ref=e104]: Menu Management
+                - button "Room Management" [ref=e105] [cursor=pointer]:
+                  - img [ref=e106]
+                  - generic [ref=e108]: Room Management
+                - button "Suppliers" [ref=e109] [cursor=pointer]:
+                  - img [ref=e110]
+                  - generic [ref=e115]: Suppliers
+                - button "Purchase Orders" [ref=e116] [cursor=pointer]:
+                  - img [ref=e117]
+                  - generic [ref=e121]: Purchase Orders
+                - button "Expenses" [ref=e122] [cursor=pointer]:
+                  - img [ref=e123]
+                  - generic [ref=e126]: Expenses
+                - button "Product Returns" [ref=e127] [cursor=pointer]:
+                  - img [ref=e128]
+                  - generic [ref=e131]: Product Returns
+                - button "Reports" [ref=e132] [cursor=pointer]:
+                  - img [ref=e133]
+                  - generic [ref=e136]: Reports
+                - button "Sales Reports" [ref=e137] [cursor=pointer]:
+                  - img [ref=e138]
+                  - generic [ref=e140]: Sales Reports
+                - button "Settings" [ref=e141] [cursor=pointer]:
+                  - img [ref=e142]
+                  - generic [ref=e145]: Settings
+              - generic [ref=e146]:
+                - generic [ref=e149]: System Status
+                - paragraph [ref=e150]: All systems operational
+                - paragraph [ref=e151]: "Access Level: Full Admin"
+            - generic [ref=e152]:
+              - paragraph [ref=e153]: © Maria Havens POS
+              - paragraph [ref=e154]: "Role: admin"
+      - main [ref=e156]:
+        - img [ref=e159]
+```
