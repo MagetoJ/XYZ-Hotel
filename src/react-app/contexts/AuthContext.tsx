@@ -79,31 +79,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { success: false, message: 'Invalid server response' };
       }
       
+      if (IS_DEVELOPMENT) {
+        console.log('✅ Login successful for user:', foundUser.username);
+        console.log('👤 User object:', JSON.stringify(foundUser, null, 2));
+        console.log('🔑 Token saved (first 30 chars):', newToken.substring(0, 30) + '...');
+      }
+      
       setUser(foundUser);
       setToken(newToken);
       localStorage.setItem('pos_user', JSON.stringify(foundUser));
       localStorage.setItem('pos_token', newToken);
 
       if (IS_DEVELOPMENT) {
-        console.log('✅ Login successful for user:', foundUser.username, 'Role:', foundUser.role);
-        console.log('🔑 Token saved (first 30 chars):', newToken.substring(0, 30) + '...');
+        console.log('📍 Role check:', foundUser.role);
+        console.log('⚙️ Role type:', typeof foundUser.role);
       }
 
-      switch (foundUser.role) {
+      const role = foundUser.role?.toLowerCase();
+      
+      if (IS_DEVELOPMENT) {
+        console.log('🎯 Routing based on role:', role);
+      }
+
+      switch (role) {
         case 'admin':
         case 'manager':
+          if (IS_DEVELOPMENT) console.log('➡️ Navigating to /admin');
           navigate('/admin');
           break;
         case 'housekeeping':
+          if (IS_DEVELOPMENT) console.log('➡️ Navigating to /housekeeping');
           navigate('/housekeeping');
           break;
         case 'receptionist':
+          if (IS_DEVELOPMENT) console.log('➡️ Navigating to /reception');
           navigate('/reception');
           break;
         case 'kitchen_staff':
+          if (IS_DEVELOPMENT) console.log('➡️ Navigating to /kitchen');
           navigate('/kitchen');
           break;
         default:
+          if (IS_DEVELOPMENT) console.log('➡️ Navigating to /pos (default)');
           navigate('/pos');
           break;
       }

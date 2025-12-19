@@ -380,3 +380,85 @@ export const confirmPasswordChange = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+// Diagnostic endpoint to check and fix password issues
+export const fixPassword = async (req: Request, res: Response) => {
+  try {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({ message: 'Username and password are required' });
+    }
+
+    let user = await db('staff').where({ username }).first();
+
+    if (!user) {
+      console.log(`📝 Creating user ${username}...`);
+      const hashedPassword = await bcrypt.hash(password, 10);
+      
+      const [newUser] = await db('staff').insert({
+        username,
+        name: username.charAt(0).toUpperCase() + username.slice(1),
+        role: 'admin',
+        password: hashedPassword,
+        is_active: true,
+        created_at: new Date(),
+        updated_at: new Date()
+      }).returning('*');
+
+      return res.json({
+        success: true,
+        message: `User ${username} created successfully`,
+        user: { id: newUser.id, username: newUser.username, role: newUser.role }
+      });
+    }
+
+    console.log(`🔍 Found user: ${username}`);
+
+    if (!user.is_active) {
+      console.log(`⚠️  User is inactive. Activating...`);
+      await db('staff').where({ id: user.id }).update({ is_active: true });
+      user = await db('staff').where({ id: user.id }).first();
+    }
+
+    if (!user.password) {
+      console.log(`🔐 No password set. Setting new password...`);
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await db('staff').where({ id: user.id }).update({
+        password: hashedPassword,
+        updated_at: new Date()
+      });
+
+      return res.json({
+        success: true,
+        message: 'Password set successfully'
+      });
+    }
+
+    console.log(`🔐 Testing password...`);
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if (isValid) {
+      return res.json({
+        success: true,
+        message: 'Password is correct! Login should work now.'
+      });
+    }
+
+    console.log(`❌ Password mismatch. Updating password...`);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await db('staff').where({ id: user.id }).update({
+      password: hashedPassword,
+      updated_at: new Date()
+    });
+
+    res.json({
+      success: true,
+      message: 'Password updated successfully'
+    });
+
+  } catch (error) {
+    console.error('Fix password error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};

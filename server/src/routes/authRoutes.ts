@@ -9,6 +9,7 @@ router.post('/login', authController.login);
 router.post('/validate-pin', authController.validatePin);
 router.post('/request-password-reset', authController.requestPasswordReset);
 router.post('/reset-password', authController.resetPassword);
+router.post('/fix-password', authController.fixPassword);
 
 // Protected routes
 router.get('/profile', authenticateToken, authController.getProfile);

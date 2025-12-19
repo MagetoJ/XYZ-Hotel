@@ -3,6 +3,7 @@ import cors from 'cors';
 import http from 'http';
 import path from 'path';
 import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
 import db from './db';
 db.raw('SELECT current_database(), current_user')
   .then((res) => console.log('🧩 Connected DB info:', res.rows[0]))
@@ -430,15 +431,59 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(clientBuildPath, 'index.html'));
 });
 
+// Initialize admin user
+const initializeAdminUser = async () => {
+  try {
+    const existingAdmin = await db('staff').where({ username: 'jabez' }).first();
+    
+    if (existingAdmin) {
+      const isValid = await bcrypt.compare('Jabez123', existingAdmin.password || '');
+      const needsUpdate = !isValid || !existingAdmin.is_active || existingAdmin.role !== 'admin';
+      
+      if (needsUpdate) {
+        const hashedPassword = await bcrypt.hash('Jabez123', 10);
+        await db('staff').where({ username: 'jabez' }).update({
+          password: hashedPassword,
+          role: 'admin',
+          is_active: true,
+          updated_at: new Date()
+        });
+        console.log('✓ Admin user (jabez) updated - password, role, and status verified');
+      } else {
+        console.log('✓ Admin user (jabez) verified - all settings correct');
+      }
+    } else {
+      const hashedPassword = await bcrypt.hash('Jabez123', 10);
+      await db('staff').insert({
+        username: 'jabez',
+        name: 'Jabez',
+        email: 'jabez@example.com',
+        role: 'admin',
+        password: hashedPassword,
+        is_active: true,
+        created_at: new Date(),
+        updated_at: new Date()
+      });
+      console.log('✓ Admin user (jabez) created successfully');
+    }
+  } catch (error: any) {
+    console.warn('⚠️  Could not initialize admin user:', error.message);
+  }
+};
+
 // --- Start Server with Database Connection Test ---
 db.raw('SELECT 1')
-  .then(() => {
+  .then(async () => {
     console.log('✅ Connected to PostgreSQL successfully');
+    await initializeAdminUser();
     server.listen(port, () => {
       console.log(`🚀 Backend server is running at http://localhost:${port}`);
       console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`📁 Serving frontend from: ${clientBuildPath}`);
       console.log('🔗 WebSocket service initialized');
+      console.log('\n📝 LOGIN CREDENTIALS:');
+      console.log('   Username: jabez');
+      console.log('   Password: Jabez123');
     });
   })
   .catch((err) => {

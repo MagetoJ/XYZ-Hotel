@@ -315,6 +315,43 @@ export const updateSetting = async (req: Request, res: Response) => {
   }
 };
 
+// Upload logo
+export const uploadLogo = async (req: Request, res: Response) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const file = req.file;
+    const logoPath = `/uploads/${file.filename}`;
+
+    // Save logo path to settings
+    await db('settings')
+      .insert({
+        key: 'business_logo',
+        value: logoPath,
+        type: 'string',
+        created_at: new Date(),
+        updated_at: new Date()
+      })
+      .onConflict('key')
+      .merge({
+        value: logoPath,
+        updated_at: new Date()
+      });
+
+    res.json({
+      success: true,
+      message: 'Logo uploaded successfully',
+      logoPath: logoPath,
+      filename: file.filename
+    });
+  } catch (error) {
+    console.error('Upload logo error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 // Internal helper function to get all settings
 async function getAllSettingsInternal() {
   // Check if type column exists
