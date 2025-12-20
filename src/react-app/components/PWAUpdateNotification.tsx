@@ -69,7 +69,7 @@ export default function PWAUpdateNotification() {
             <p className="text-sm text-gray-600 mt-1">
               {updateError 
                 ? 'Failed to update the app. Please refresh manually.'
-                : 'A new version of Maria Havens POS is available. Update now for the latest features and improvements.'
+                : 'A new version of XYZ Hotel POS is available. Update now for the latest features and improvements.'
               }
             </p>
             

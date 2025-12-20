@@ -31,14 +31,14 @@ router.use(authenticateToken);
 
 // CRITICAL: Define specific routes BEFORE generic /:id
 // /export must come before /:id, otherwise "/:id" matches "/export" as id="export"
-router.get('/export', authorizeRoles('admin', 'manager'), productController.exportProducts); 
-router.post('/upload', authorizeRoles('admin', 'manager'), upload.single('file'), productController.uploadProducts); 
+router.get('/export', authorizeRoles('admin', 'manager', 'receptionist'), productController.exportProducts); 
+router.post('/upload', authorizeRoles('admin', 'manager', 'receptionist'), upload.single('file'), productController.uploadProducts); 
   
 // Now define generic ID route
 router.get('/:id', productController.getProductById); 
   
-router.post('/', authorizeRoles('admin', 'manager'), productController.createProduct); 
-router.put('/:id', authorizeRoles('admin', 'manager'), productController.updateProduct); 
+router.post('/', authorizeRoles('admin', 'manager', 'receptionist'), productController.createProduct); 
+router.put('/:id', authorizeRoles('admin', 'manager', 'receptionist'), productController.updateProduct); 
 router.patch('/:id/toggle-availability', authorizeRoles('admin', 'manager', 'kitchen_staff'), productController.toggleProductAvailability); 
 router.delete('/:id', authorizeRoles('admin'), productController.deleteProduct); 
   

@@ -40,12 +40,13 @@ export interface Room {
 
 export interface OrderItem {
   id: number;
-  product_id: number;
+  product_id?: number;
   name: string;
   quantity: number;
   price: number;
   notes?: string;
   source?: 'kitchen' | 'bar';
+  is_custom?: boolean;
 }
 
 export interface Order {
@@ -63,6 +64,7 @@ interface POSContextType {
   currentOrder: Order | null;
   setCurrentOrder: (order: Order | null) => void;
   addItemToOrder: (product: Product, quantity?: number, orderType?: 'dine_in' | 'takeaway' | 'delivery' | 'room_service') => void;
+  addCustomItemToOrder: (name: string, price: number, quantity?: number, orderType?: 'dine_in' | 'takeaway' | 'delivery' | 'room_service') => void;
   removeItemFromOrder: (itemId: number) => void;
   updateItemQuantity: (itemId: number, newQuantity: number) => void;
   clearOrder: () => void;
@@ -107,6 +109,29 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  const addCustomItemToOrder = (name: string, price: number, quantity: number = 1, orderType: 'dine_in' | 'takeaway' | 'delivery' | 'room_service' = 'dine_in') => {
+    const newItem: OrderItem = {
+      id: Date.now(),
+      name,
+      quantity,
+      price,
+      is_custom: true,
+      source: 'kitchen',
+    };
+
+    if (!currentOrder) {
+      const newOrder: Order = {
+        id: `temp-${Date.now()}`,
+        order_type: orderType,
+        items: [newItem],
+      };
+      setCurrentOrder(newOrder);
+    } else {
+      const updatedItems = [...currentOrder.items, newItem];
+      setCurrentOrder({ ...currentOrder, items: updatedItems });
+    }
+  };
+
   const removeItemFromOrder = (itemId: number) => {
     if (!currentOrder) return;
     const updatedItems = currentOrder.items.filter(item => item.id !== itemId);
@@ -138,6 +163,7 @@ export const POSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       currentOrder,
       setCurrentOrder,
       addItemToOrder,
+      addCustomItemToOrder,
       removeItemFromOrder,
       updateItemQuantity,
       clearOrder,

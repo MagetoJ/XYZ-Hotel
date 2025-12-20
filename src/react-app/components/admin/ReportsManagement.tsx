@@ -91,11 +91,15 @@ interface AnnualReportData {
   }[];
 }
 
-export default function ReportsManagement() {
+interface ReportsManagementProps {
+  defaultTab?: string;
+}
+
+export default function ReportsManagement({ defaultTab = 'overview' }: ReportsManagementProps) {
   const [reportData, setReportData] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false); // Default to false initially
   const [error, setError] = useState<string | null>(null);
-  const [selectedReport, setSelectedReport] = useState('overview');
+  const [selectedReport, setSelectedReport] = useState(defaultTab);
   const [dateRange, setDateRange] = useState({
     start: new Date(new Date().setDate(1)).toISOString().split('T')[0], // Default to start of month
     end: new Date().toISOString().split('T')[0] // Default to today

@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
 import { usePOS, Category } from '../contexts/POSContext';
 import { apiClient, IS_DEVELOPMENT } from '../config/api';
-import { Loader2, Wine, UtensilsCrossed } from 'lucide-react';
+import { Loader2, Wine, UtensilsCrossed, Plus } from 'lucide-react';
 import ProductGrid from './ProductGrid';
 import SearchComponent from './SearchComponent';
+import CustomItemModal from './CustomItemModal';
 
 export default function MenuGrid() {
+  const { currentOrder } = usePOS();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [mode, setMode] = useState<'kitchen' | 'bar'>('kitchen');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isCustomModalOpen, setIsCustomModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -68,7 +71,7 @@ export default function MenuGrid() {
           onClick={() => { setMode('kitchen'); setSelectedCategory(null); setSearchTerm(''); }}
           className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 ${
             mode === 'kitchen'
-              ? 'bg-orange-400 text-orange-900'
+              ? 'bg-indigo-500 text-white'
               : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
           }`}
         >
@@ -79,7 +82,7 @@ export default function MenuGrid() {
           onClick={() => { setMode('bar'); setSelectedCategory(null); setSearchTerm(''); }}
           className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 ${
             mode === 'bar'
-              ? 'bg-purple-400 text-purple-900'
+              ? 'bg-violet-500 text-white'
               : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
           }`}
         >
@@ -97,6 +100,17 @@ export default function MenuGrid() {
         />
       </div>
 
+      {/* Custom Item Button - Only show in kitchen mode */}
+      {mode === 'kitchen' && (
+        <button
+          onClick={() => setIsCustomModalOpen(true)}
+          className="mb-4 px-4 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
+        >
+          <Plus size={20} />
+          Add Custom Dish
+        </button>
+      )}
+
       {/* Category Tabs - Only show for kitchen mode when not searching */}
       {mode === 'kitchen' && searchTerm === '' && (
         <div className="flex gap-1 sm:gap-2 mb-4 sm:mb-6 overflow-x-auto pb-2">
@@ -104,7 +118,7 @@ export default function MenuGrid() {
             onClick={() => setSelectedCategory(null)}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-sm sm:text-base font-medium whitespace-nowrap transition-colors ${
               selectedCategory === null
-                ? 'bg-yellow-400 text-yellow-900'
+                ? 'bg-blue-500 text-white'
                 : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
             }`}
           >
@@ -118,7 +132,7 @@ export default function MenuGrid() {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-sm sm:text-base font-medium whitespace-nowrap transition-colors ${
                   selectedCategory === category.id
-                    ? 'bg-yellow-400 text-yellow-900'
+                    ? 'bg-blue-500 text-white'
                     : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                 }`}
               >
@@ -132,6 +146,13 @@ export default function MenuGrid() {
       <div className="flex-1 overflow-y-auto">
         <ProductGrid mode={mode} searchQuery={searchTerm} />
       </div>
+
+      {/* Custom Item Modal */}
+      <CustomItemModal 
+        isOpen={isCustomModalOpen} 
+        onClose={() => setIsCustomModalOpen(false)}
+        orderType={currentOrder?.order_type || 'dine_in'}
+      />
     </div>
   );
 }

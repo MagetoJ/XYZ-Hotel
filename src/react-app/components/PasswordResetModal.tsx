@@ -162,7 +162,7 @@ export default function PasswordResetModal({ isOpen, onClose }: PasswordResetMod
                   id="reset-username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none transition-all"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   placeholder="Enter your username"
                   disabled={loading}
                 />
@@ -199,7 +199,7 @@ export default function PasswordResetModal({ isOpen, onClose }: PasswordResetMod
             <button
               type="submit"
               disabled={loading || !username.trim()}
-              className="w-full bg-gradient-to-r from-yellow-400 to-amber-500 text-white py-3 px-4 rounded-lg font-semibold hover:from-yellow-500 hover:to-amber-600 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -242,7 +242,7 @@ export default function PasswordResetModal({ isOpen, onClose }: PasswordResetMod
                   const value = e.target.value.replace(/\D/g, '').slice(0, 6);
                   setResetCode(value);
                 }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none transition-all text-center text-2xl font-mono tracking-widest"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-center text-2xl font-mono tracking-widest"
                 placeholder="000000"
                 maxLength={6}
                 disabled={loading}
@@ -260,7 +260,7 @@ export default function PasswordResetModal({ isOpen, onClose }: PasswordResetMod
                   id="new-password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none transition-all"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   placeholder="Enter new password"
                   disabled={loading}
                 />
@@ -278,7 +278,7 @@ export default function PasswordResetModal({ isOpen, onClose }: PasswordResetMod
                   id="confirm-password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none transition-all"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   placeholder="Confirm new password"
                   disabled={loading}
                 />
@@ -310,7 +310,7 @@ export default function PasswordResetModal({ isOpen, onClose }: PasswordResetMod
               <button
                 type="submit"
                 disabled={loading || !resetCode || !newPassword || !confirmPassword}
-                className="flex-1 bg-gradient-to-r from-yellow-400 to-amber-500 text-white py-3 px-4 rounded-lg font-semibold hover:from-yellow-500 hover:to-amber-600 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>

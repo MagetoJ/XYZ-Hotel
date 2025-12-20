@@ -6,12 +6,12 @@ import * as reportsController from '../controllers/reportsController';
 
 const router = express.Router();
 
-// --- ADD NEW ADMIN-ONLY ROUTE HERE ---
-// This route is checked first and is restricted to admins.
+// --- ADD NEW ADMIN & RECEPTIONIST ROUTE HERE ---
+// This route is checked first and is restricted to admins and receptionists.
 router.get(
   '/receipts',
   authenticateToken,
-  authorizeRoles('admin'), // Ensures only admins can access
+  authorizeRoles('admin', 'receptionist'), // Allow admins and receptionists to access
   reportsController.getReceiptsByDate // The new controller function
 );
 

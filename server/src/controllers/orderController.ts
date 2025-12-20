@@ -97,7 +97,9 @@ export const createOrder = async (req: Request, res: Response) => {
 
         const orderItems = items.map((item: any) => ({
           order_id: orderId,
-          product_id: item.product_id,
+          product_id: item.is_custom ? null : item.product_id,
+          custom_name: item.is_custom ? item.name : null,
+          is_custom: item.is_custom || false,
           quantity: Number(item.quantity),
           unit_price: Number(item.unit_price),
           total_price: Number(item.total_price),
@@ -183,6 +185,12 @@ export const getOrders = async (req: Request, res: Response) => {
         .select(
           'order_items.*',
           'products.name as product_name'
+        )
+        .then((items: any[]) => 
+          items.map(item => ({
+            ...item,
+            name: item.is_custom ? item.custom_name : item.product_name
+          }))
         );
     }
 
@@ -212,6 +220,12 @@ export const getOrderById = async (req: Request, res: Response) => {
       .select(
         'order_items.*',
         'products.name as product_name'
+      )
+      .then((items: any[]) => 
+        items.map(item => ({
+          ...item,
+          name: item.is_custom ? item.custom_name : item.product_name
+        }))
       );
 
     res.json(order);

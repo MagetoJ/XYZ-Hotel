@@ -39,7 +39,7 @@ export const config = {
     SECURE: process.env.EMAIL_SECURE === 'true',
     USER: process.env.EMAIL_USER,
     PASSWORD: process.env.EMAIL_PASSWORD,
-    FROM: process.env.EMAIL_FROM || 'Maria Havens POS <noreply@mariahavens.com>',
+    FROM: process.env.EMAIL_FROM || 'XYZ Hotel POS <noreply@xyzhotel.com>',
   },
   
   // Database configuration

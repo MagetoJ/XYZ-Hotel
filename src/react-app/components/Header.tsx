@@ -88,14 +88,14 @@ export default function Header() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 sm:gap-4">
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
               <div className="w-5 h-5 sm:w-6 sm:h-6 bg-black rounded-sm flex items-center justify-center relative">
-                <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-400 rounded-sm"></div>
+                <div className="w-2 h-2 sm:w-3 sm:h-3 bg-blue-500 rounded-sm"></div>
                 <div className="absolute top-0 right-0 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-sm"></div>
               </div>
             </div>
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900 truncate">Maria Havens POS</h1>
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900 truncate">XYZ Hotel POS</h1>
               <p className="text-xs sm:text-sm text-gray-500 hidden sm:block">Hotel & Restaurant System</p>
             </div>
           </div>

@@ -16,7 +16,7 @@ exports.up = function(knex) {
 
     -- Insert default settings
     INSERT INTO settings (key, value, description) VALUES
-      ('restaurant_name', 'Maria Havens', 'Restaurant name'),
+      ('restaurant_name', 'XYZ Hotel', 'Restaurant name'),
       ('restaurant_address', 'Your Restaurant Address', 'Restaurant address'),
       ('restaurant_phone', '+1234567890', 'Restaurant phone number'),
       ('tax_rate', '10', 'Tax rate percentage'),

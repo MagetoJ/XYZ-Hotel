@@ -156,9 +156,9 @@ export class PWAService {
   // App info
   getAppInfo() {
     return {
-      name: 'Maria Havens POS System',
-      shortName: 'Maria Havens POS',
-      description: 'Professional Point of Sale system for Maria Havens restaurant and hotel.',
+      name: 'XYZ Hotel POS System',
+      shortName: 'XYZ Hotel POS',
+      description: 'Professional Point of Sale system for XYZ Hotel restaurant and hotel.',
       version: '1.0.0',
       environment: this.getEnvironment(),
       isInstalled: this.isAppInstalled(),

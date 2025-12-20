@@ -21,6 +21,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: radial-gradient(circle at top left, #f8fafc, #e2e8f0);
+  color: #1e293b;
+  min-height: 100vh;
   
   /* Mobile-specific improvements */
   -webkit-tap-highlight-color: transparent;
@@ -38,6 +41,20 @@ input, textarea, [contenteditable="true"] {
   -moz-user-select: text !important;
   -ms-user-select: text !important;
   user-select: text !important;
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  border-radius: 1rem;
+}
+
+/* Interactive hover effects for buttons */
+.btn-primary {
+  @apply bg-primary-600 text-white transition-all duration-200 hover:bg-primary-700 hover:shadow-lg active:scale-95 rounded-lg;
 }
 
 /* Mobile animations */

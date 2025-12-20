@@ -91,14 +91,14 @@ export default function Sidebar({
           <button
             key={item.id}
             onClick={() => handleNavItemClick(item.id)}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
               isActive
-                ? 'bg-yellow-100 text-yellow-900 font-semibold'
-                : 'text-gray-700 hover:bg-gray-100 font-medium'
+                ? 'bg-primary-600 text-white shadow-md hover:shadow-lg'
+                : 'text-slate-600 hover:bg-slate-100 font-medium'
             }`}
           >
-            <Icon className={`w-5 h-5 ${isActive ? 'text-yellow-800' : 'text-gray-500'}`} />
-            <span>{item.label}</span>
+            <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+            <span className="font-medium">{item.label}</span>
           </button>
         );
       })}
@@ -107,9 +107,9 @@ export default function Sidebar({
 
   const defaultFooter = (
     <>
-      <p className="text-xs text-gray-500">© Maria Havens POS</p>
-      <p className="text-xs text-gray-500">
-        Role: <span className="capitalize font-medium">{user?.role?.replace('_', ' ')}</span>
+      <p className="text-xs text-slate-500">© XYZ Hotel</p>
+      <p className="text-xs text-slate-500">
+        Role: <span className="capitalize font-medium text-slate-600">{user?.role?.replace('_', ' ')}</span>
       </p>
     </>
   );
@@ -125,7 +125,7 @@ export default function Sidebar({
 
       <aside
         className={`
-          fixed lg:fixed top-0 left-0 h-screen w-64 bg-white border-r border-gray-200 p-6 transform transition-transform duration-300 ease-in-out overflow-y-auto flex flex-col z-50
+          fixed lg:fixed top-0 left-0 h-screen w-64 bg-white border-r border-primary-100 p-6 transform transition-transform duration-300 ease-in-out overflow-y-auto flex flex-col z-50
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0
         `}
@@ -133,12 +133,12 @@ export default function Sidebar({
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between mb-6 flex-shrink-0">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
-              <p className="text-sm text-gray-600">Logged in as {user?.name}</p>
+              <h2 className="text-lg font-bold text-primary-900">{title}</h2>
+              <p className="text-sm text-slate-500">Logged in as {user?.name}</p>
             </div>
             <button
               onClick={closeSidebar}
-              className="lg:hidden p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+              className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
               aria-label="Close navigation menu"
             >
               <X className="w-5 h-5" />
@@ -150,7 +150,7 @@ export default function Sidebar({
               {renderNavItems()}
               {children}
             </div>
-            <div className="pt-6 border-t border-gray-200 space-y-1 flex-shrink-0">
+            <div className="pt-6 border-t border-primary-100 space-y-1 flex-shrink-0">
               {footerContent ?? defaultFooter}
             </div>
           </div>
@@ -170,7 +170,7 @@ export default function Sidebar({
       )}
 
       {showMobileQuickNav && (
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 sm:hidden">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-primary-100 z-40 sm:hidden">
           <div className="flex">
             {navItems.slice(0, 4).map((item) => {
               const Icon = item.icon;
@@ -181,11 +181,11 @@ export default function Sidebar({
                   onClick={() => handleNavItemClick(item.id)}
                   className={`flex-1 flex flex-col items-center gap-1 px-2 py-3 text-xs transition-colors ${
                     isActive
-                      ? 'bg-yellow-50 text-yellow-900 font-medium'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      ? 'bg-primary-50 text-primary-900 font-semibold'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <Icon className={`w-5 h-5 ${isActive ? 'text-yellow-800' : 'text-gray-500'}`} />
+                  <Icon className={`w-5 h-5 ${isActive ? 'text-primary-600' : 'text-slate-400'}`} />
                   <span className="truncate">{item.label}</span>
                 </button>
               );
@@ -193,9 +193,9 @@ export default function Sidebar({
             {navItems.length > 4 && (
               <button
                 onClick={openSidebar}
-                className="flex-1 flex flex-col items-center gap-1 px-2 py-3 text-xs text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                className="flex-1 flex flex-col items-center gap-1 px-2 py-3 text-xs text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"
               >
-                <Menu className="w-5 h-5 text-gray-500" />
+                <Menu className="w-5 h-5 text-slate-400" />
                 <span>More</span>
               </button>
             )}

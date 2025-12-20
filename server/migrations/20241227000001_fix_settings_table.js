@@ -15,7 +15,7 @@ exports.up = function(knex) {
 
     -- Update existing settings to have proper types and keys
     INSERT INTO settings (key, value, type, description, created_at, updated_at) VALUES
-      ('business_name', 'Maria Havens POS', 'string', 'Business name for receipts', NOW(), NOW()),
+      ('business_name', 'XYZ Hotel POS', 'string', 'Business name for receipts', NOW(), NOW()),
       ('business_address', 'Hotel & Restaurant Address', 'string', 'Business address for receipts', NOW(), NOW()),
       ('business_phone', '+254-XXX-XXXX', 'string', 'Business phone number', NOW(), NOW()),
       ('currency_symbol', 'KES', 'string', 'Currency symbol', NOW(), NOW()),

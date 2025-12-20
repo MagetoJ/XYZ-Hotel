@@ -211,7 +211,7 @@ export default function SettingsManagement() {
                                 label="Business Name" 
                                 value={settings.business_name as string || ''} 
                                 onChange={e => handleInputChange('business_name', e.target.value)} 
-                                placeholder="e.g., Maria Havens Hotel"
+                                placeholder="e.g., XYZ Hotel"
                             />
                             <SettingInput 
                                 label="Address" 

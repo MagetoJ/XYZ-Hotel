@@ -101,13 +101,13 @@ export default function Login({ onQuickPOSAccess }: LoginProps) {
       
       <div className="w-full max-w-md">
         <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-4 shadow-lg">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-black rounded-lg flex items-center justify-center relative">
-              <div className="w-5 h-5 sm:w-6 sm:h-6 bg-yellow-400 rounded-sm"></div>
+              <div className="w-5 h-5 sm:w-6 sm:h-6 bg-blue-500 rounded-sm"></div>
               <div className="absolute top-1 right-1 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-sm"></div>
             </div>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Maria Havens</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">XYZ Hotel</h1>
           <p className="text-sm sm:text-base text-gray-600">Point of Sale System</p>
         </div>
 
@@ -171,7 +171,7 @@ export default function Login({ onQuickPOSAccess }: LoginProps) {
             <button
               type="submit"
               disabled={isLoading || !username || !password}
-              className="w-full bg-gradient-to-r from-yellow-400 to-amber-500 text-white py-2.5 sm:py-3 px-4 rounded-lg font-semibold hover:from-yellow-500 hover:to-amber-600 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 text-base"
+              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2.5 sm:py-3 px-4 rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 text-base"
             >
               {isLoading ? (
                 <>

@@ -3,7 +3,7 @@ import db from '../db';
 
 // Default settings
 const DEFAULT_SETTINGS = {
-  business_name: 'Maria Havens POS',
+  business_name: 'XYZ Hotel POS',
   business_address: '',
   business_phone: '',
   business_email: '',

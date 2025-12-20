@@ -184,13 +184,50 @@ export const getOverviewReport = async (req: Request, res: Response) => {
       popularProducts = [];
     }
 
+    // Get categorized sales for Bar vs Food separation
+    console.log('🍔 Fetching categorized sales...');
+    let barSales = 0;
+    let foodSales = 0;
+    try {
+      const categorizedSales = await db('order_items')
+        .join('orders', 'order_items.order_id', 'orders.id')
+        .join('products', 'order_items.product_id', 'products.id')
+        .leftJoin('categories', 'products.category_id', 'categories.id')
+        .whereBetween('orders.created_at', [`${startDate} 00:00:00`, `${endDate} 23:59:59`])
+        .select(
+          'categories.name as category_name',
+          db.raw('SUM(order_items.total_price) as total_revenue')
+        )
+        .groupBy('categories.id', 'categories.name');
+
+      const barCategories = ['Beer', 'Wine', 'Soft Drinks', 'Gin', 'Whiskey', 'Vodka', 'Tequila', 'Rum', 'Liqueurs', 'Brandy', 'Ciders', 'Spirits', 'Drinks', 'Beverages'];
+      
+      categorizedSales.forEach((item: any) => {
+        const amount = parseFloat(item.total_revenue) || 0;
+        if (item.category_name && barCategories.some(cat => item.category_name.toLowerCase().includes(cat.toLowerCase()))) {
+          barSales += amount;
+        } else {
+          foodSales += amount;
+        }
+      });
+      
+      console.log('✅ Categorized sales result:', { barSales, foodSales });
+    } catch (categorizedError) {
+      console.error('❌ Categorized sales query failed:', categorizedError);
+      // If categorized query fails, all sales go to foodSales
+      foodSales = parseFloat(salesOverview?.total_revenue) || 0;
+    }
+
     console.log('📤 Sending response...');
     
     // Transform data to match frontend expectations
     const transformedResponse = {
       period: { start: startDate, end: endDate },
       sales: { 
-        monthly: parseFloat(salesOverview?.total_revenue) || 0 
+        monthly: parseFloat(salesOverview?.total_revenue) || 0,
+        total: parseFloat(salesOverview?.total_revenue) || 0,
+        barSales: barSales,
+        foodSales: foodSales
       },
       orders: { 
         total: parseInt(salesOverview?.total_orders) || 0,

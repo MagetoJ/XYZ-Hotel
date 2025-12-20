@@ -23,8 +23,8 @@ import authRoutes from './routes/authRoutes';
 import adminRoutes from './routes/adminRoutes';
 import inventoryRoutes from './routes/inventoryRoutes';
 import kitchenRoutes from './routes/kitchenRoutes';
-import receptionistRoutes from './routes/receptionistRoutes';
-import roomRoutes from './routes/roomRoutes';
+// import receptionistRoutes from './routes/receptionistRoutes'; // Disabled for restaurant-only POS
+// import roomRoutes from './routes/roomRoutes'; // Disabled for restaurant-only POS
 import productRoutes from './routes/productRoutes';
 import staffRoutes from './routes/staffRoutes';
 import orderRoutes from './routes/orderRoutes';
@@ -46,6 +46,7 @@ import recipesRoutes from './routes/recipesRoutes';
 import wastageRoutes from './routes/wastageRoutes';
 import stockTransfersRoutes from './routes/stockTransfersRoutes';
 import inventoryAuditsRoutes from './routes/inventoryAuditsRoutes';
+import handoverRoutes from './routes/handoverRoutes';
 
 // --- Initialization ---
 dotenv.config();
@@ -134,8 +135,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/kitchen', kitchenRoutes);
-app.use('/api/receptionist', receptionistRoutes);
-app.use('/api/rooms', roomRoutes);
+// Commented out: Receptionist and room management features disabled for restaurant-only POS
+// app.use('/api/receptionist', receptionistRoutes);
+// app.use('/api/rooms', roomRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/orders', orderRoutes);
@@ -157,6 +159,7 @@ app.use('/api/recipes', recipesRoutes);
 app.use('/api/wastage', wastageRoutes);
 app.use('/api/stock-transfers', stockTransfersRoutes);
 app.use('/api/inventory-audits', inventoryAuditsRoutes);
+app.use('/api/handovers', handoverRoutes);
 
 // --- Search Endpoint ---
 app.get('/api/search', async (req, res) => {

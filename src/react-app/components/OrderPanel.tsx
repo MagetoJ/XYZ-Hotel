@@ -159,7 +159,7 @@ const ReceiptPreviewModal: React.FC<{ details: ReceiptDetails; onClose: () => vo
               <div className="mb-3">
                 <img src="/logo.PNG" alt="Restaurant Logo" className="h-32 mx-auto" />
               </div>
-              <div className="text-xl font-extrabold mb-1">MARIA HAVENS</div>
+              <div className="text-xl font-extrabold mb-1">XYZ HOTEL</div>
               <div className="text-sm">Restaurant & Hotel</div>
               <div className="border-t border-dashed border-gray-400 my-3"></div>
               <div className="text-left text-sm space-y-1 mb-3">
@@ -202,7 +202,7 @@ const ReceiptPreviewModal: React.FC<{ details: ReceiptDetails; onClose: () => vo
           </button>
           <button
             onClick={handlePrint}
-            className="w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 rounded-md font-semibold flex justify-center items-center transition-colors"
+            className="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-md font-semibold flex justify-center items-center transition-colors"
           >
             <Printer className="w-5 h-5 mr-2" />
             Print Receipt
@@ -579,7 +579,7 @@ export default function OrderPanel({ isQuickAccess = false, onOrderPlaced }: Ord
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="Enter customer name"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
             
@@ -592,7 +592,7 @@ export default function OrderPanel({ isQuickAccess = false, onOrderPlaced }: Ord
                 <select
                   value={selectedTableId}
                   onChange={(e) => setSelectedTableId(e.target.value === '' ? '' : parseInt(e.target.value))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">-- Select a table --</option>
                   {tablesList
@@ -623,7 +623,7 @@ export default function OrderPanel({ isQuickAccess = false, onOrderPlaced }: Ord
                     }
                   }}
                   placeholder="Enter room number"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
             )}
@@ -636,7 +636,7 @@ export default function OrderPanel({ isQuickAccess = false, onOrderPlaced }: Ord
               <select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value as 'cash' | 'card' | 'mobile_money' | 'room_charge')}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="cash">Cash</option>
                 <option value="card">Card</option>
@@ -665,7 +665,7 @@ export default function OrderPanel({ isQuickAccess = false, onOrderPlaced }: Ord
             </button>
             <button
               onClick={handleFinalizeOrder}
-              className="w-full py-3 bg-yellow-400 text-yellow-900 rounded-md font-semibold hover:bg-yellow-500"
+              className="w-full py-3 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600"
             >
               Finalize Order
             </button>
@@ -686,7 +686,7 @@ export default function OrderPanel({ isQuickAccess = false, onOrderPlaced }: Ord
               <select
                 value={selectedWaiterId}
                 onChange={handleWaiterChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 disabled={isSubmitting}
               >
                 <option value="">-- Choose your name --</option>
@@ -772,7 +772,7 @@ export default function OrderPanel({ isQuickAccess = false, onOrderPlaced }: Ord
               <button
                 onClick={handlePinVerification}
                 disabled={isSubmitting || !selectedWaiterId || pin.length !== 4}
-                className="w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 rounded-md font-semibold flex justify-center items-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-md font-semibold flex justify-center items-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>

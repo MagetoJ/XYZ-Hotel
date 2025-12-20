@@ -75,7 +75,7 @@ export default function PWAInstallBanner({ showOnLogin = true, className = '' }:
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium truncate">
-                    Install Maria Havens POS
+                    Install XYZ Hotel POS
                   </p>
                   <p className="text-xs text-blue-100">
                     {pwaService.isMobile() ? 'Add to home screen for quick access' : 'Get app-like experience'}
@@ -129,7 +129,7 @@ export default function PWAInstallBanner({ showOnLogin = true, className = '' }:
                 <Share className="w-6 h-6 text-blue-600" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900">Install App</h3>
-              <p className="text-sm text-gray-600 mt-1">Add Maria Havens POS to your home screen</p>
+              <p className="text-sm text-gray-600 mt-1">Add XYZ Hotel POS to your home screen</p>
             </div>
 
             <div className="space-y-3 mb-6">

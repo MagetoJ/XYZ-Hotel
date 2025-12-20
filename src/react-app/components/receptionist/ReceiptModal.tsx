@@ -131,7 +131,7 @@ export default function ReceiptModal({ receiptData, onClose }: ReceiptModalProps
       <body>
         <div class="receipt">
           <img src="/logo.PNG" alt="Restaurant Logo" class="logo" />
-          <div class="header">MARIA HAVENS</div>
+          <div class="header">XYZ HOTEL</div>
           <div class="subheader">Restaurant & Hotel</div>
           <div class="subheader">${getReceiptTitle(receiptData.orderType)}</div>
           <div class="divider"></div>
@@ -248,7 +248,7 @@ export default function ReceiptModal({ receiptData, onClose }: ReceiptModalProps
             </div>
             
             {/* Header */}
-            <div className="font-black text-lg mb-1 tracking-wider text-black">MARIA HAVENS</div>
+            <div className="font-black text-lg mb-1 tracking-wider text-black">XYZ HOTEL</div>
             <div className="text-sm mb-2 font-black text-black">Restaurant & Hotel</div>
             <div className="text-sm mb-3 font-black text-black">{getReceiptTitle(receiptData.orderType)}</div>
             <div className="border-t-2 border-dashed border-gray-400 my-2"></div>
