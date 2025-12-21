@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { apiClient } from '../../config/api';
+import { useAuth } from '../../contexts/AuthContext';
 import { Plus, Edit2, Trash2, Loader2, AlertCircle } from 'lucide-react';
 
 interface Staff {
@@ -14,6 +15,7 @@ interface Staff {
 }
 
 export default function StaffManagement() {
+  const { user } = useAuth();
   const [staff, setStaff] = useState<Staff[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +32,8 @@ export default function StaffManagement() {
     password: '',
     is_active: true
   });
+
+  const isSuperadmin = user?.role === 'superadmin';
 
   useEffect(() => {
     fetchStaff();
@@ -141,6 +145,10 @@ export default function StaffManagement() {
   };
 
   const handleEdit = (staffMember: Staff) => {
+    if ((staffMember.role === 'admin' || staffMember.role === 'superadmin') && !isSuperadmin) {
+      setError('Only Superadmins can edit Admin or Superadmin accounts');
+      return;
+    }
     setEditingStaff(staffMember);
     setFormData({
       employee_id: staffMember.employee_id || '',
@@ -156,6 +164,12 @@ export default function StaffManagement() {
   };
 
   const handleDelete = async (id: number) => {
+    const staffMember = staff.find(s => s.id === id);
+    if ((staffMember?.role === 'admin' || staffMember?.role === 'superadmin') && !isSuperadmin) {
+      setError('Only Superadmins can delete Admin or Superadmin accounts');
+      return;
+    }
+
     if (!confirm('Are you sure you want to delete this staff member?')) {
       return;
     }
@@ -352,13 +366,29 @@ export default function StaffManagement() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleEdit(member)}
-                          className="text-blue-600 hover:text-blue-800"
+                          disabled={(member.role === 'admin' || member.role === 'superadmin') && !isSuperadmin}
+                          className={(member.role === 'admin' || member.role === 'superadmin') && !isSuperadmin
+                            ? 'text-gray-400 cursor-not-allowed' 
+                            : 'text-blue-600 hover:text-blue-800'
+                          }
+                          title={(member.role === 'admin' || member.role === 'superadmin') && !isSuperadmin
+                            ? 'Only Superadmins can edit this account'
+                            : 'Edit'
+                          }
                         >
                           <Edit2 className="w-5 h-5" />
                         </button>
                         <button
                           onClick={() => handleDelete(member.id)}
-                          className="text-red-600 hover:text-red-800"
+                          disabled={(member.role === 'admin' || member.role === 'superadmin') && !isSuperadmin}
+                          className={(member.role === 'admin' || member.role === 'superadmin') && !isSuperadmin
+                            ? 'text-gray-400 cursor-not-allowed'
+                            : 'text-red-600 hover:text-red-800'
+                          }
+                          title={(member.role === 'admin' || member.role === 'superadmin') && !isSuperadmin
+                            ? 'Only Superadmins can delete this account'
+                            : 'Delete'
+                          }
                         >
                           <Trash2 className="w-5 h-5" />
                         </button>
@@ -446,9 +476,14 @@ export default function StaffManagement() {
                   onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                   required
+                  disabled={editingStaff && (editingStaff.role === 'admin' || editingStaff.role === 'superadmin') && !isSuperadmin}
                 >
-                  <option value="superadmin">Superadmin</option>
-                  <option value="admin">Admin</option>
+                  {isSuperadmin && (
+                    <>
+                      <option value="superadmin">Superadmin</option>
+                      <option value="admin">Admin</option>
+                    </>
+                  )}
                   <option value="manager">Manager</option>
                   <option value="waiter">Waiter</option>
                   <option value="kitchen_staff">Kitchen Staff</option>

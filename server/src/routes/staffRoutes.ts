@@ -22,13 +22,13 @@ router.get('/:id',
   staffController.getStaffById
 );
 
-// Create new staff member (admin and manager only)
+// Create new staff member (admin and manager only) - controller validates role restrictions
 router.post('/', 
   authorizeRoles('admin', 'manager'), 
   staffController.createStaff
 );
 
-// Update staff member (admin and manager only)
+// Update staff member (admin and manager only) - controller validates role restrictions
 router.put('/:id', 
   authorizeRoles('admin', 'manager'), 
   staffController.updateStaff
@@ -38,6 +38,27 @@ router.put('/:id',
 router.delete('/:id', 
   authorizeRoles('admin', 'manager'), 
   staffController.deleteStaff
+);
+
+// Superadmin-only routes for creating/updating admin-level accounts
+router.post('/superadmin/create-admin-level',
+  authorizeRoles('superadmin'),
+  staffController.createStaff
+);
+
+router.put('/superadmin/update-admin-level/:id',
+  authorizeRoles('superadmin'),
+  staffController.updateStaff
+);
+
+router.post('/reset-password', 
+  authorizeRoles('superadmin'), 
+  staffController.resetUserPassword
+);
+
+router.get('/audit/logs', 
+  authorizeRoles('superadmin', 'admin'), 
+  staffController.getAuditLogs
 );
 
 export default router;

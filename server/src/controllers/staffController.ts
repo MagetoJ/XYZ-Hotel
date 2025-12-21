@@ -103,6 +103,15 @@ export const createStaff = async (req: Request, res: Response) => {
       });
     }
 
+    const requesterRole = (req as any).user?.role;
+
+    if ((role === 'admin' || role === 'superadmin') && requesterRole !== 'superadmin') {
+      console.log('❌ Unauthorized: Only superadmins can create admin or superadmin accounts');
+      return res.status(403).json({ 
+        message: 'Only a Superadmin can create Admin or Superadmin accounts' 
+      });
+    }
+
     // Check if username already exists
     console.log('🔍 Checking if username exists:', username);
     const existingUser = await db('staff').where({ username }).first();
@@ -198,7 +207,6 @@ export const createStaff = async (req: Request, res: Response) => {
   }
 };
 
-// Update staff member
 export const updateStaff = async (req: Request, res: Response) => {
   try {
     console.log('📝 Updating staff member:', req.params.id);
@@ -207,7 +215,15 @@ export const updateStaff = async (req: Request, res: Response) => {
     const { id } = req.params;
     const updateData: any = { ...req.body };
 
-    // Remove id from update data if present
+    const requesterRole = (req as any).user?.role;
+
+    if ((updateData.role === 'admin' || updateData.role === 'superadmin') && requesterRole !== 'superadmin') {
+      console.log('❌ Unauthorized: Only superadmins can assign admin or superadmin roles');
+      return res.status(403).json({ 
+        message: 'Only a Superadmin can assign Admin or Superadmin roles' 
+      });
+    }
+
     delete updateData.id;
     delete updateData.created_at;
     
@@ -354,3 +370,118 @@ export const getWaiters = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const resetUserPassword = async (req: Request, res: Response) => {
+  try {
+    const { userId, newPassword } = req.body;
+    const adminId = (req as any).user?.id;
+    const adminUsername = (req as any).user?.username;
+
+    if (!userId || !newPassword) {
+      return res.status(400).json({ message: 'User ID and new password are required' });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters long' });
+    }
+
+    const targetUser = await db('staff').where({ id: userId }).first();
+    if (!targetUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await db('staff')
+      .where({ id: userId })
+      .update({
+        password: hashedPassword,
+        updated_at: new Date()
+      });
+
+    await logAuditEvent({
+      action: 'PASSWORD_RESET',
+      adminId,
+      adminUsername,
+      targetUserId: userId,
+      targetUsername: targetUser.username,
+      details: `Password reset for user ${targetUser.username}`
+    });
+
+    res.json({ 
+      message: 'User password reset successfully',
+      user: targetUser.username
+    });
+  } catch (err) {
+    console.error('Error resetting user password:', err);
+    const errorMsg = (err as any).message || (err as Error).message;
+    res.status(500).json({
+      message: 'Failed to reset password',
+      error: process.env.NODE_ENV === 'development' ? errorMsg : undefined
+    });
+  }
+};
+
+export const getAuditLogs = async (req: Request, res: Response) => {
+  try {
+    const { limit = 50, offset = 0, action, userId } = req.query;
+    const limitNum = Math.min(parseInt(limit as string) || 50, 200);
+    const offsetNum = Math.max(parseInt(offset as string) || 0, 0);
+
+    let query = db('audit_logs');
+
+    if (action) {
+      query = query.where({ action });
+    }
+
+    if (userId) {
+      query = query.where({ admin_id: userId });
+    }
+
+    const logs = await query
+      .orderBy('created_at', 'desc')
+      .limit(limitNum)
+      .offset(offsetNum);
+
+    const countResult = await db('audit_logs').count('id as count').first() as { count: string | number } | undefined;
+    const totalCount = Number(countResult?.count) || 0;
+
+    res.json({
+      logs,
+      pagination: {
+        limit: limitNum,
+        offset: offsetNum,
+        total: totalCount
+      }
+    });
+  } catch (err) {
+    console.error('Error fetching audit logs:', err);
+    const errorMsg = (err as any).message || (err as Error).message;
+    res.status(500).json({
+      message: 'Failed to fetch audit logs',
+      error: process.env.NODE_ENV === 'development' ? errorMsg : undefined
+    });
+  }
+};
+
+async function logAuditEvent(data: {
+  action: string;
+  adminId?: number;
+  adminUsername?: string;
+  targetUserId?: number;
+  targetUsername?: string;
+  details?: string;
+}) {
+  try {
+    await db('audit_logs').insert({
+      action: data.action,
+      admin_id: data.adminId,
+      admin_username: data.adminUsername,
+      target_user_id: data.targetUserId,
+      target_username: data.targetUsername,
+      details: data.details,
+      created_at: new Date()
+    });
+  } catch (err) {
+    console.error('Error logging audit event:', err);
+  }
+}

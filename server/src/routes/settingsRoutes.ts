@@ -35,11 +35,11 @@ router.use(authenticateToken);
 // Get all settings
 router.get('/', settingsController.getAllSettings);
 
-// Update settings
-router.post('/', settingsController.updateSettings);
-router.put('/', settingsController.updateSettings);
+// Update settings - Restricted to Superadmin for business branding
+router.post('/', authorizeRoles('superadmin'), settingsController.updateSettings);
+router.put('/', authorizeRoles('superadmin'), settingsController.updateSettings);
 
-// Upload logo
+// Upload logo - Restricted to Superadmin only
 const handleUploadError = (err: any, req: any, res: any, next: any) => {
   if (err instanceof multer.MulterError) {
     return res.status(400).json({ message: `Upload error: ${err.message}` });
@@ -50,7 +50,7 @@ const handleUploadError = (err: any, req: any, res: any, next: any) => {
 };
 
 router.post('/upload/logo',
-  authorizeRoles('admin', 'manager'),
+  authorizeRoles('superadmin'),
   upload.single('logo'),
   handleUploadError,
   settingsController.uploadLogo

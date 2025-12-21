@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, BarChart, Bar } from 'recharts';
-import { AlertTriangle, CheckCircle, Clock, TrendingUp } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Clock, TrendingUp, Lock, RotateCcw, Eye } from 'lucide-react';
 import { apiClient } from '../config/api';
+import { useAuth } from '../contexts/AuthContext';
 
 interface HealthData {
   status: string;
@@ -37,12 +38,38 @@ interface Alert {
   timestamp: string;
 }
 
+interface Staff {
+  id: number;
+  username: string;
+  name: string;
+  role: string;
+  is_active: boolean;
+}
+
+interface AuditLog {
+  id: number;
+  action: string;
+  admin_username: string;
+  target_username: string;
+  details: string;
+  created_at: string;
+}
+
 const SystemHealthDashboard = () => {
+  const { user } = useAuth();
   const [data, setData] = useState<HealthData | null>(null);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshInterval, setRefreshInterval] = useState(30000);
+  const [staffList, setStaffList] = useState<Staff[]>([]);
+  const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
+  const [showPasswordReset, setShowPasswordReset] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<Staff | null>(null);
+  const [newPassword, setNewPassword] = useState('');
+  const [resetError, setResetError] = useState('');
+  const [resetSuccess, setResetSuccess] = useState(false);
+  const [showAuditLogs, setShowAuditLogs] = useState(false);
 
   const fetchHealth = async () => {
     try {
@@ -75,17 +102,82 @@ const SystemHealthDashboard = () => {
     }
   };
 
+  const fetchStaffList = async () => {
+    try {
+      const res = await apiClient.get('/api/staff');
+      if (res.ok) {
+        const data = await res.json();
+        setStaffList(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch staff list:', err);
+    }
+  };
+
+  const fetchAuditLogs = async () => {
+    try {
+      const res = await apiClient.get('/api/staff/audit/logs?limit=20');
+      if (res.ok) {
+        const data = await res.json();
+        setAuditLogs(data.logs || []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch audit logs:', err);
+    }
+  };
+
+  const handlePasswordReset = async () => {
+    if (!selectedUser || !newPassword) {
+      setResetError('Please select a user and enter a new password');
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      setResetError('Password must be at least 6 characters');
+      return;
+    }
+
+    try {
+      const res = await apiClient.post('/api/staff/reset-password', {
+        userId: selectedUser.id,
+        newPassword
+      });
+
+      if (res.ok) {
+        setResetSuccess(true);
+        setResetError('');
+        setNewPassword('');
+        setSelectedUser(null);
+        setShowPasswordReset(false);
+        setTimeout(() => setResetSuccess(false), 3000);
+        fetchAuditLogs();
+      } else {
+        const data = await res.json();
+        setResetError(data.message || 'Failed to reset password');
+      }
+    } catch (err: any) {
+      setResetError(err.message || 'Error resetting password');
+    }
+  };
+
   useEffect(() => {
     fetchHealth();
     fetchAlerts();
+    if (user?.role === 'superadmin') {
+      fetchStaffList();
+      fetchAuditLogs();
+    }
 
     const interval = setInterval(() => {
       fetchHealth();
       fetchAlerts();
+      if (user?.role === 'superadmin') {
+        fetchAuditLogs();
+      }
     }, refreshInterval);
 
     return () => clearInterval(interval);
-  }, [refreshInterval]);
+  }, [refreshInterval, user?.role]);
 
   if (loading) {
     return (
@@ -341,6 +433,129 @@ const SystemHealthDashboard = () => {
       <div className="text-center text-sm text-gray-500 mt-8">
         Last updated: {new Date(data.timestamp).toLocaleString()}
       </div>
+
+      {user?.role === 'superadmin' && (
+        <div className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-lg shadow-xl p-6 text-white mt-8">
+          <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+            <Lock className="w-6 h-6" />
+            Superadmin Control Panel
+          </h3>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-slate-700 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-lg font-semibold">User Password Recovery</h4>
+                <RotateCcw className="w-5 h-5" />
+              </div>
+              <p className="text-sm text-gray-300 mb-4">
+                Reset forgotten user passwords. Changes are logged in the audit trail.
+              </p>
+              <button
+                onClick={() => {
+                  setShowPasswordReset(!showPasswordReset);
+                  setResetError('');
+                }}
+                className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors"
+              >
+                {showPasswordReset ? 'Hide Password Reset' : 'Reset User Password'}
+              </button>
+
+              {showPasswordReset && (
+                <div className="mt-4 space-y-4 p-4 bg-slate-800 rounded-lg">
+                  {resetSuccess && (
+                    <div className="p-3 bg-green-600 text-white rounded-lg text-sm">
+                      ✓ Password reset successfully!
+                    </div>
+                  )}
+                  {resetError && (
+                    <div className="p-3 bg-red-600 text-white rounded-lg text-sm">
+                      ✗ {resetError}
+                    </div>
+                  )}
+                  
+                  <select
+                    value={selectedUser?.id || ''}
+                    onChange={(e) => {
+                      const userId = parseInt(e.target.value);
+                      const user = staffList.find(s => s.id === userId);
+                      setSelectedUser(user || null);
+                    }}
+                    className="w-full px-3 py-2 bg-slate-700 border border-slate-600 text-white rounded-lg"
+                  >
+                    <option value="">Select a user...</option>
+                    {staffList.map(staff => (
+                      <option key={staff.id} value={staff.id}>
+                        {staff.name} (@{staff.username}) - {staff.role}
+                      </option>
+                    ))}
+                  </select>
+
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Enter new password (min. 6 characters)"
+                    className="w-full px-3 py-2 bg-slate-700 border border-slate-600 text-white rounded-lg placeholder-gray-400"
+                  />
+
+                  <button
+                    onClick={handlePasswordReset}
+                    disabled={!selectedUser || !newPassword}
+                    className="w-full px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white rounded-lg font-semibold transition-colors"
+                  >
+                    Reset Password
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="bg-slate-700 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-lg font-semibold">Audit Logs</h4>
+                <Eye className="w-5 h-5" />
+              </div>
+              <p className="text-sm text-gray-300 mb-4">
+                View system actions performed by administrators.
+              </p>
+              <button
+                onClick={() => {
+                  setShowAuditLogs(!showAuditLogs);
+                  if (!showAuditLogs) fetchAuditLogs();
+                }}
+                className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-colors"
+              >
+                {showAuditLogs ? 'Hide Audit Logs' : 'View Audit Logs'}
+              </button>
+
+              {showAuditLogs && (
+                <div className="mt-4 space-y-2 max-h-80 overflow-y-auto p-4 bg-slate-800 rounded-lg">
+                  {auditLogs.length === 0 ? (
+                    <p className="text-sm text-gray-400">No audit logs available</p>
+                  ) : (
+                    auditLogs.map(log => (
+                      <div
+                        key={log.id}
+                        className="p-3 bg-slate-700 rounded-lg border-l-2 border-blue-500 text-sm"
+                      >
+                        <p className="font-semibold text-blue-300">{log.action}</p>
+                        <p className="text-xs text-gray-400 mt-1">
+                          By: {log.admin_username || 'System'} → Target: {log.target_username || 'N/A'}
+                        </p>
+                        {log.details && (
+                          <p className="text-xs text-gray-400 mt-1">{log.details}</p>
+                        )}
+                        <p className="text-xs text-gray-500 mt-1">
+                          {new Date(log.created_at).toLocaleString()}
+                        </p>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

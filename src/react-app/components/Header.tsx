@@ -1,7 +1,8 @@
-import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, User, Clock, Search, Lock } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { apiClient } from '../config/api';
 import SearchComponent from './SearchComponent';
 import ChangePasswordModal from './ChangePasswordModal';
 import { navigateToSearchResult } from '../utils/searchNavigation';
@@ -13,6 +14,40 @@ export default function Header() {
   const [showSearch, setShowSearch] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const [businessName, setBusinessName] = useState('XYZ Hotel POS');
+  const [businessLogo, setBusinessLogo] = useState('/logo.PNG');
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await apiClient.get('/api/settings');
+        if (res.ok) {
+          const data = await res.json();
+          setBusinessName(data.business_name || 'XYZ Hotel POS');
+          setBusinessLogo(data.business_logo || '/logo.PNG');
+        }
+      } catch (err) {
+        console.error('Failed to fetch settings:', err);
+      }
+    };
+    fetchSettings();
+  }, []);
+
+  useEffect(() => {
+    document.title = `${businessName} | POS`;
+  }, [businessName]);
+
+  useEffect(() => {
+    const link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
+    if (link) {
+      link.href = businessLogo;
+    } else {
+      const newLink = document.createElement('link');
+      newLink.rel = 'icon';
+      newLink.href = businessLogo;
+      document.head.appendChild(newLink);
+    }
+  }, [businessLogo]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -97,7 +132,7 @@ export default function Header() {
             </div>
             <div className="min-w-0 flex items-center gap-2">
               <div>
-                <h1 className="text-lg sm:text-xl font-bold text-gray-900 truncate">XYZ Hotel POS</h1>
+                <h1 className="text-lg sm:text-xl font-bold text-gray-900 truncate">{businessName}</h1>
                 <p className="text-xs sm:text-sm text-gray-500 hidden sm:block">Hotel & Restaurant System</p>
               </div>
               {user?.role === 'superadmin' && (

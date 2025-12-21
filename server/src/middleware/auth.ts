@@ -54,10 +54,9 @@ export const authorizeRoles = (...allowedRoles: string[]) => {
 
     const userRole = req.user.role;
     
-    // Superadmin inherits all permissions from admin and other roles
-    const hasPermission = allowedRoles.includes(userRole) || (userRole === 'superadmin' && allowedRoles.includes('admin'));
+    const hasExplicitRole = allowedRoles.includes(userRole);
     
-    if (!hasPermission && userRole !== 'superadmin') {
+    if (!hasExplicitRole && userRole !== 'superadmin') {
       res.status(403).json({ message: 'You do not have permission to access this resource' });
       return;
     }

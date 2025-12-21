@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
-import { Save, Loader2, AlertTriangle, Building, Percent, FileText, Upload, Check, X } from 'lucide-react';
+import { Save, Loader2, AlertTriangle, Building, Percent, FileText, Upload, Check, X, Lock } from 'lucide-react';
 import { API_URL } from '../../config/api';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface AppSettings {
     [key: string]: string | number | boolean;
 }
 
 export default function SettingsManagement() {
+    const { user } = useAuth();
     const [settings, setSettings] = useState<AppSettings>({});
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
@@ -14,6 +16,7 @@ export default function SettingsManagement() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const isSuperadmin = user?.role === 'superadmin';
 
     const getToken = () => localStorage.getItem('pos_token');
 
@@ -55,9 +58,14 @@ export default function SettingsManagement() {
                 },
                 body: JSON.stringify(settings)
             });
-            if (!response.ok) throw new Error('Failed to save settings.');
-            setSuccess('Settings saved successfully!');
-            setTimeout(() => setSuccess(''), 3000);
+            if (!response.ok) {
+                if (response.status === 403) {
+                    throw new Error('Only Superadmins can modify system settings.');
+                }
+                throw new Error('Failed to save settings.');
+            }
+            setSuccess('Settings saved successfully! Browser will refresh to apply changes.');
+            setTimeout(() => window.location.reload(), 1500);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred.');
         } finally {
@@ -90,12 +98,17 @@ export default function SettingsManagement() {
                 body: formData
             });
 
-            if (!response.ok) throw new Error('Failed to upload logo');
+            if (!response.ok) {
+                if (response.status === 403) {
+                    throw new Error('Only Superadmins can upload logos.');
+                }
+                throw new Error('Failed to upload logo');
+            }
             
             const data = await response.json();
             setSettings(prev => ({ ...prev, business_logo: data.logoPath }));
-            setSuccess('Logo uploaded successfully!');
-            setTimeout(() => setSuccess(''), 3000);
+            setSuccess('Logo uploaded successfully! Browser will refresh to apply changes.');
+            setTimeout(() => window.location.reload(), 1500);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred.');
         } finally {
@@ -108,6 +121,25 @@ export default function SettingsManagement() {
 
     if (isLoading) {
         return <div className="flex justify-center items-center py-20"><Loader2 className="w-8 h-8 animate-spin text-yellow-500" /></div>;
+    }
+
+    if (!isSuperadmin) {
+        return (
+            <div className="space-y-6">
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 flex items-start gap-4">
+                    <Lock className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                        <h3 className="font-semibold text-yellow-800 text-lg mb-2">🔐 Superadmin Only</h3>
+                        <p className="text-yellow-700 mb-2">
+                            System settings and business branding management is restricted to Superadmins only.
+                        </p>
+                        <p className="text-yellow-700 text-sm">
+                            Only Superadmins can update the business name, logo, and configure critical system settings.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (
