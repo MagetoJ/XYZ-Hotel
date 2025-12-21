@@ -87,17 +87,22 @@ export default function Sidebar({
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = activeItem === item.id;
+        const isSuperadmin = user?.role === 'superadmin';
         return (
           <button
             key={item.id}
             onClick={() => handleNavItemClick(item.id)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
               isActive
-                ? 'bg-primary-600 text-white shadow-md hover:shadow-lg'
+                ? isSuperadmin
+                  ? 'bg-blue-600 text-white shadow-md hover:shadow-lg'
+                  : 'bg-primary-600 text-white shadow-md hover:shadow-lg'
+                : isSuperadmin
+                ? 'text-slate-300 hover:bg-slate-700 font-medium'
                 : 'text-slate-600 hover:bg-slate-100 font-medium'
             }`}
           >
-            <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+            <Icon className={`w-5 h-5 ${isActive ? 'text-white' : isSuperadmin ? 'text-slate-400' : 'text-slate-400'}`} />
             <span className="font-medium">{item.label}</span>
           </button>
         );
@@ -107,10 +112,17 @@ export default function Sidebar({
 
   const defaultFooter = (
     <>
-      <p className="text-xs text-slate-500">© XYZ Hotel</p>
-      <p className="text-xs text-slate-500">
-        Role: <span className="capitalize font-medium text-slate-600">{user?.role?.replace('_', ' ')}</span>
-      </p>
+      <p className={`text-xs ${user?.role === 'superadmin' ? 'text-slate-400' : 'text-slate-500'}`}>© XYZ Hotel</p>
+      <div className="flex items-center justify-between">
+        <p className={`text-xs ${user?.role === 'superadmin' ? 'text-slate-400' : 'text-slate-500'}`}>
+          Role: <span className={`capitalize font-medium ${user?.role === 'superadmin' ? 'text-slate-300' : 'text-slate-600'}`}>{user?.role?.replace('_', ' ')}</span>
+        </p>
+        {user?.role === 'superadmin' && (
+          <span className="inline-flex items-center px-2.5 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md">
+            🔐 Superadmin
+          </span>
+        )}
+      </div>
     </>
   );
 
@@ -125,7 +137,10 @@ export default function Sidebar({
 
       <aside
         className={`
-          fixed lg:fixed top-0 left-0 h-screen w-64 bg-white border-r border-primary-100 p-6 transform transition-transform duration-300 ease-in-out overflow-y-auto flex flex-col z-50
+          fixed lg:fixed top-0 left-0 h-screen w-64 border-r p-6 transform transition-transform duration-300 ease-in-out overflow-y-auto flex flex-col z-50
+          ${user?.role === 'superadmin' 
+            ? 'bg-gradient-to-b from-slate-900 to-slate-800 border-slate-700' 
+            : 'bg-white border-primary-100'}
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0
         `}
@@ -133,12 +148,16 @@ export default function Sidebar({
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between mb-6 flex-shrink-0">
             <div>
-              <h2 className="text-lg font-bold text-primary-900">{title}</h2>
-              <p className="text-sm text-slate-500">Logged in as {user?.name}</p>
+              <h2 className={`text-lg font-bold ${user?.role === 'superadmin' ? 'text-white' : 'text-primary-900'}`}>{title}</h2>
+              <p className={`text-sm ${user?.role === 'superadmin' ? 'text-slate-300' : 'text-slate-500'}`}>Logged in as {user?.name}</p>
             </div>
             <button
               onClick={closeSidebar}
-              className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+              className={`lg:hidden p-2 rounded-lg transition-colors ${
+                user?.role === 'superadmin'
+                  ? 'text-slate-300 hover:text-white hover:bg-slate-700'
+                  : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'
+              }`}
               aria-label="Close navigation menu"
             >
               <X className="w-5 h-5" />
@@ -150,7 +169,7 @@ export default function Sidebar({
               {renderNavItems()}
               {children}
             </div>
-            <div className="pt-6 border-t border-primary-100 space-y-1 flex-shrink-0">
+            <div className={`pt-6 border-t space-y-1 flex-shrink-0 ${user?.role === 'superadmin' ? 'border-slate-700' : 'border-primary-100'}`}>
               {footerContent ?? defaultFooter}
             </div>
           </div>

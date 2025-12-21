@@ -10,6 +10,7 @@ exports.up = function(knex) {
     ALTER TABLE orders ADD COLUMN IF NOT EXISTS notes TEXT;
     ALTER TABLE orders ADD COLUMN IF NOT EXISTS discount_amount NUMERIC DEFAULT 0;
     ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_status TEXT DEFAULT 'pending';
+    ALTER TABLE orders ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP WITH TIME ZONE;
   `);
 };
 
@@ -24,5 +25,6 @@ exports.down = function(knex) {
     ALTER TABLE orders DROP COLUMN IF EXISTS notes;
     ALTER TABLE orders DROP COLUMN IF EXISTS discount_amount;
     ALTER TABLE orders DROP COLUMN IF EXISTS payment_status;
+    ALTER TABLE orders DROP COLUMN IF EXISTS completed_at;
   `);
 };

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { apiClient } from '../config/api';
 import { envLog, IS_DEVELOPMENT } from '../config/environment';
@@ -99,7 +99,6 @@ interface ActiveUser {
   is_active: any;
   [x: string]: any;
   staff_id: any;
-  is_active: any;
   logout_time: string;
   id: number;
   name: string;
@@ -119,7 +118,16 @@ interface LowStockItem {
 export default function AdminDashboard() {
   const { user } = useAuth();
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState('overview');
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  
+  const getInitialTab = (): string => {
+    const urlTab = searchParams.get('tab');
+    if (urlTab) return urlTab;
+    return user?.role === 'superadmin' ? 'monitoring' : 'overview';
+  };
+  
+  const [activeTab, setActiveTab] = useState(getInitialTab());
   const [overviewData, setOverviewData] = useState<OverviewStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -140,6 +148,14 @@ export default function AdminDashboard() {
   ]);
   
   const [lowStockChartData, setLowStockChartData] = useState<Array<{ name: string; current: number; minimum: number }>>([]);
+
+  // Sync URL when activeTab changes
+  useEffect(() => {
+    const currentTab = searchParams.get('tab');
+    if (activeTab && activeTab !== currentTab) {
+      navigate(`/admin?tab=${activeTab}`, { replace: true });
+    }
+  }, [activeTab, navigate, searchParams]);
 
   // Handle navigation from URL hash (for search result navigation)
   useEffect(() => {
@@ -277,7 +293,7 @@ export default function AdminDashboard() {
       fetchOverviewData();
   }, [activeTab]);
 
-  const menuItems = [
+  const baseMenuItems = [
     { id: 'overview', label: 'Overview', icon: BarChart3 },
     { id: 'search', label: 'Global Search', icon: Search },
     { id: 'staff', label: 'Staff Management', icon: Users },
@@ -292,9 +308,14 @@ export default function AdminDashboard() {
     { id: 'product-returns', label: 'Product Returns', icon: RotateCcw },
     { id: 'reports', label: 'Reports', icon: FileText },
     { id: 'sales-reports', label: 'Sales Reports', icon: DollarSign },
-    ...(user?.role === 'superadmin' ? [{ id: 'monitoring', label: 'System Monitoring', icon: Activity }] : []),
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
+
+  const monitoringItem = { id: 'monitoring', label: 'System Monitoring', icon: Activity };
+  
+  const menuItems = user?.role === 'superadmin' 
+    ? [monitoringItem, ...baseMenuItems]
+    : baseMenuItems;
 
   const INVENTORY_COLORS = ['#3b82f6', '#ef4444', '#f59e0b', '#10b981', '#8b5cf6', '#ec4899', '#06b6d4', '#6366f1'];
 

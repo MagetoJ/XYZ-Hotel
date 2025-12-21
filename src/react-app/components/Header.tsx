@@ -37,6 +37,7 @@ export default function Header() {
 
   const getRoleDisplayName = (role: string) => {
     const roleMap: { [key: string]: string } = {
+      superadmin: 'Superadmin',
       admin: 'Administrator',
       manager: 'Manager',
       cashier: 'Cashier',
@@ -84,19 +85,26 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 px-4 py-3 sm:px-6 sm:py-4">
+    <header className={`bg-white shadow-sm border-b ${user?.role === 'superadmin' ? 'border-purple-300' : 'border-gray-200'} px-4 py-3 sm:px-6 sm:py-4`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 sm:gap-4">
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+            <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center ${user?.role === 'superadmin' ? 'bg-gradient-to-br from-purple-500 to-purple-600' : 'bg-gradient-to-br from-blue-500 to-blue-600'}`}>
               <div className="w-5 h-5 sm:w-6 sm:h-6 bg-black rounded-sm flex items-center justify-center relative">
-                <div className="w-2 h-2 sm:w-3 sm:h-3 bg-blue-500 rounded-sm"></div>
+                <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-sm ${user?.role === 'superadmin' ? 'bg-purple-500' : 'bg-blue-500'}`}></div>
                 <div className="absolute top-0 right-0 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-sm"></div>
               </div>
             </div>
-            <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900 truncate">XYZ Hotel POS</h1>
-              <p className="text-xs sm:text-sm text-gray-500 hidden sm:block">Hotel & Restaurant System</p>
+            <div className="min-w-0 flex items-center gap-2">
+              <div>
+                <h1 className="text-lg sm:text-xl font-bold text-gray-900 truncate">XYZ Hotel POS</h1>
+                <p className="text-xs sm:text-sm text-gray-500 hidden sm:block">Hotel & Restaurant System</p>
+              </div>
+              {user?.role === 'superadmin' && (
+                <span className="hidden md:inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-700 whitespace-nowrap">
+                  ⭐ Superadmin Mode
+                </span>
+              )}
             </div>
           </div>
         </div>

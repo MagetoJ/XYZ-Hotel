@@ -103,6 +103,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       switch (role) {
         case 'superadmin':
+          if (IS_DEVELOPMENT) console.log('➡️ Navigating to /admin with monitoring tab (superadmin)');
+          navigate('/admin?tab=monitoring');
+          break;
         case 'admin':
         case 'manager':
           if (IS_DEVELOPMENT) console.log('➡️ Navigating to /admin');
