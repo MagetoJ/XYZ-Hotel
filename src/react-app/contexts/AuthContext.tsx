@@ -9,7 +9,7 @@ export interface User {
   employee_id: string;
   username: string;
   name: string;
-  role: 'admin' | 'manager' | 'cashier' | 'waiter' | 'kitchen_staff' | 'delivery' | 'receptionist' | 'housekeeping';
+  role: 'superadmin' | 'admin' | 'manager' | 'cashier' | 'waiter' | 'kitchen_staff' | 'delivery' | 'receptionist' | 'housekeeping';
   pin?: string;
   is_active: boolean;
 }
@@ -102,6 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       switch (role) {
+        case 'superadmin':
         case 'admin':
         case 'manager':
           if (IS_DEVELOPMENT) console.log('➡️ Navigating to /admin');

@@ -9,6 +9,7 @@ lerna-debug.log*
 
 # Dependencies
 node_modules/
+server/node_modules/
 
 # Build output
 dist/
@@ -20,15 +21,26 @@ server/dist/
 .dev.vars
 worker-configuration.d.ts
 
-# Local Environment Variables
+# Environment Variables - Never commit these
 .env
-.env.*.local
 .env.local
+.env.*.local
+server/.env
+server/.env.local
+server/.env.*.local
+
+# Sensitive Environment Variables
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Databases
 server/database/pos.sqlite3
+*.db
+*.sqlite
+*.sqlite3
 
-# Editor directories and files
+# IDE
 .vscode/*
 !.vscode/extensions.json
 .idea/
@@ -38,3 +50,15 @@ server/database/pos.sqlite3
 *.njsproj
 *.sln
 *.sw?
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Testing
+coverage/
+.nyc_output/
+
+# PWA
+sw.js
+workbox-*.js

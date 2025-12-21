@@ -47,6 +47,7 @@ import wastageRoutes from './routes/wastageRoutes';
 import stockTransfersRoutes from './routes/stockTransfersRoutes';
 import inventoryAuditsRoutes from './routes/inventoryAuditsRoutes';
 import handoverRoutes from './routes/handoverRoutes';
+import monitoringRoutes from './routes/monitoringRoutes';
 
 // --- Initialization ---
 dotenv.config();
@@ -160,6 +161,7 @@ app.use('/api/wastage', wastageRoutes);
 app.use('/api/stock-transfers', stockTransfersRoutes);
 app.use('/api/inventory-audits', inventoryAuditsRoutes);
 app.use('/api/handovers', handoverRoutes);
+app.use('/api/monitoring', monitoringRoutes);
 
 // --- Search Endpoint ---
 app.get('/api/search', async (req, res) => {

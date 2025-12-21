@@ -19,6 +19,7 @@ import PurchaseOrdersManagement from '../components/admin/PurchaseOrdersManageme
 import PerfomanceDashboard from '../components/PerfomanceDashboardView';
 import PersonalSalesReport from '../components/PersonalSalesReport';
 import SearchComponent from '../components/SearchComponent';
+import SystemHealthDashboard from '../components/SystemHealthDashboard';
 import { navigateToSearchResult } from '../utils/searchNavigation';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
@@ -40,6 +41,7 @@ import {
   RotateCcw,
   Truck,
   ShoppingCart,
+  Activity,
 } from 'lucide-react';
 
 // --- Helper Functions ---
@@ -290,6 +292,7 @@ export default function AdminDashboard() {
     { id: 'product-returns', label: 'Product Returns', icon: RotateCcw },
     { id: 'reports', label: 'Reports', icon: FileText },
     { id: 'sales-reports', label: 'Sales Reports', icon: DollarSign },
+    ...(user?.role === 'superadmin' ? [{ id: 'monitoring', label: 'System Monitoring', icon: Activity }] : []),
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
@@ -1028,6 +1031,8 @@ export default function AdminDashboard() {
         return <ReportsManagement />;
       case 'sales-reports':
         return <PersonalSalesReport />;
+      case 'monitoring':
+        return <SystemHealthDashboard />;
       case 'settings':
         return <SettingsManagement />;
       default:

@@ -42,10 +42,10 @@ export default defineConfig({
         ]
       },
       manifest: {
-        name: 'Maria Havens POS System',
-        short_name: 'Maria Havens POS',
-        description: 'Professional Point of Sale system for Maria Havens restaurant and hotel.',
-        theme_color: '#f59e0b',
+        name: 'XYZ Hotel POS System',
+        short_name: 'XYZ Hotel POS',
+        description: 'Professional Point of Sale system for XYZ Hotel restaurant and bar.',
+        theme_color: '#3b82f6',
         background_color: '#ffffff',
         display: 'standalone',
         start_url: '/',
