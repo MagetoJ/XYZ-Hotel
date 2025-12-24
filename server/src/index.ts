@@ -61,10 +61,12 @@ const webSocketService = new WebSocketService(server);
 // Import and initialize WebSocket service in controllers that need it
 import { setWebSocketService as setOrderWS } from './controllers/orderController';
 import { setWebSocketService as setKitchenWS } from './controllers/kitchenController';
+import { setWebSocketService as setMonitoringWS } from './controllers/monitoringController';
 
 // Set WebSocket service in controllers
 setOrderWS(webSocketService);
 setKitchenWS(webSocketService);
+setMonitoringWS(webSocketService);
 
 // --- CORS Configuration ---
 app.use(cors({

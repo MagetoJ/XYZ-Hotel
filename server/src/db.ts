@@ -2,9 +2,7 @@ import knex from 'knex';
 import dotenv from 'dotenv';
 import path from 'path';
 
-// Load environment-specific configuration
-const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
-dotenv.config({ path: path.join(__dirname, '..', envFile) });
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevelopment = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
@@ -12,7 +10,6 @@ const isDevelopment = process.env.NODE_ENV === 'development' || !process.env.NOD
 console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 console.log(`🔗 Database URL configured: ${process.env.DATABASE_URL ? 'Yes' : 'No'}`);
 
-// Enhanced database configuration with better environment detection
 const getDatabaseConfig = () => {
   if (process.env.DATABASE_URL) {
     console.log('🗄️ Using DATABASE_URL connection');
@@ -23,11 +20,11 @@ const getDatabaseConfig = () => {
         ssl: { rejectUnauthorized: false },
       },
       pool: {
-        min: 0,
-        max: 5,
+        min: 2,
+        max: 10,
         acquireTimeoutMillis: 30000,
-        idleTimeoutMillis: 10000,
-        reapIntervalMillis: 2000,
+        idleTimeoutMillis: 30000,
+        reapIntervalMillis: 1000
       },
       debug: isDevelopment,
     };
@@ -41,13 +38,19 @@ const getDatabaseConfig = () => {
       database: process.env.DB_NAME || 'pos_mocha_dev',
       port: parseInt(process.env.DB_PORT || '5432'),
     },
+    pool: {
+      min: 2,
+      max: 10,
+      acquireTimeoutMillis: 30000,
+      idleTimeoutMillis: 30000,
+      reapIntervalMillis: 1000,
+    },
     debug: isDevelopment,
     };
 };
 
 const db = knex(getDatabaseConfig());
 
-// Enhanced connection testing with retry logic
 const testConnection = async (retries = 3) => {
   for (let i = 0; i < retries; i++) {
     try {
@@ -65,7 +68,7 @@ const testConnection = async (retries = 3) => {
           console.error('🚨 Production database connection failed - check DATABASE_URL');
         }
       } else {
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds before retry
+        await new Promise(resolve => setTimeout(resolve, 2000));
       }
     }
   }
@@ -220,7 +223,6 @@ const ensureCriticalTables = async () => {
   }
 };
 
-// Test connection on startup
 testConnection().then(() => ensureCriticalTables()).catch(() => ensureCriticalTables());
 
 export default db;

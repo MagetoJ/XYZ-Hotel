@@ -12,4 +12,12 @@ router.get('/database', authenticateToken, authorizeRoles('superadmin', 'admin')
 
 router.get('/alerts', authenticateToken, authorizeRoles('superadmin', 'admin'), monitoringController.getPerformanceAlerts);
 
+router.get('/advanced-metrics', authenticateToken, authorizeRoles('superadmin', 'admin'), monitoringController.getAdvancedMetrics);
+
+router.get('/staff-sales', authenticateToken, authorizeRoles('superadmin', 'admin', 'manager'), monitoringController.getStaffSalesDistribution);
+
+router.get('/profitability', authenticateToken, authorizeRoles('superadmin', 'admin', 'manager'), monitoringController.getProfitabilityAnalytics);
+
+router.get('/inventory-velocity', authenticateToken, authorizeRoles('superadmin', 'admin', 'manager'), monitoringController.getInventoryVelocity);
+
 export default router;

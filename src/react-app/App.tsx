@@ -7,13 +7,12 @@ import HousekeepingDashboard from './pages/HousekeepingDashboard';
 import Home from './pages/Home';
 import NetworkStatus from './components/NetworkStatus';
 import KitchenDashboard from './pages/KitchenDashboard';
-import ReceptionistDashboard from './pages/ReceptionistDashboard'; // <-- Import the new dashboard
+import ReceptionistDashboard from './pages/ReceptionistDashboard';
 
 import PWAUpdateNotification from './components/PWAUpdateNotification';
 
 const SKIP_LOGIN = import.meta.env.VITE_SKIP_LOGIN === 'true';
 
-// This component remains the same, protecting sensitive routes
 const ProtectedRoute = ({ children, allowedRoles }: { children: JSX.Element, allowedRoles?: string[] }) => {
   const { user, isAuthenticated } = useAuth();
 
@@ -21,13 +20,11 @@ const ProtectedRoute = ({ children, allowedRoles }: { children: JSX.Element, all
     return <Navigate to="/login" replace />;
   }
 
-  // If no specific roles are required, just being authenticated is enough
   if (!allowedRoles) {
     return children;
   }
 
   if (user && !allowedRoles.includes(user.role)) {
-    // Redirect unauthorized users to a default page, e.g., /pos
     return <Navigate to="/pos" replace />;
   }
 
@@ -73,7 +70,6 @@ function App() {
           path="/kitchen"
           element={
             <ProtectedRoute allowedRoles={['kitchen_staff', 'admin', 'manager']}>
-              {/* Using KitchenDashboard for consistency */}
               <KitchenDashboard />
             </ProtectedRoute>
           }
@@ -88,7 +84,6 @@ function App() {
           }
         />
 
-        {/* --- ADDED RECEPTIONIST ROUTE --- */}
         <Route
           path="/reception"
           element={
