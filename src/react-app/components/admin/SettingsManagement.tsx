@@ -311,6 +311,39 @@ export default function SettingsManagement() {
                             placeholder="Thank you for your business!"
                         />
                     </div>
+
+                    <div className="bg-white rounded-lg p-6 border border-gray-200">
+                        <div className="flex items-center gap-3 mb-4">
+                            <Percent className="w-6 h-6 text-green-600" />
+                            <h3 className="text-lg font-semibold text-gray-900">Mobile Money Configuration</h3>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <SettingInput 
+                                label="Paybill / Till Number" 
+                                value={settings.mobile_money_paybill as string || ''} 
+                                onChange={e => handleInputChange('mobile_money_paybill', e.target.value)} 
+                                placeholder="e.g. 174379"
+                            />
+                            <SettingInput 
+                                label="Account Display Name" 
+                                value={settings.mobile_money_account_name as string || ''} 
+                                onChange={e => handleInputChange('mobile_money_account_name', e.target.value)} 
+                                placeholder="e.g. XYZ HOTEL LTD"
+                            />
+                            <div className="flex items-center gap-4 p-4 border rounded-lg bg-gray-50">
+                                <input 
+                                    type="checkbox" 
+                                    checked={!!settings.enable_mobile_money} 
+                                    onChange={e => handleInputChange('enable_mobile_money', e.target.checked)}
+                                    className="w-5 h-5 text-yellow-500 rounded"
+                                />
+                                <div>
+                                    <p className="font-medium text-gray-900">Enable Mobile Money</p>
+                                    <p className="text-xs text-gray-500">Show mobile money as a payment option in POS</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

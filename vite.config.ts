@@ -23,19 +23,42 @@ export default defineConfig({
               cacheName: 'google-fonts-cache',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+                maxAgeSeconds: 60 * 60 * 24 * 365
               }
             }
           },
           {
-            // Cache GET requests to API endpoints only
             urlPattern: ({ request }) => request.url.includes('/api/') && request.method === 'GET',
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-get-cache',
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 // 1 hour
+                maxAgeSeconds: 60 * 60
+              }
+            }
+          },
+          {
+            urlPattern: ({ request }) => request.url.includes('/api/orders') && request.method === 'POST',
+            handler: 'NetworkOnly',
+            options: {
+              cacheName: 'api-post-cache',
+              backgroundSync: {
+                name: 'order-queue',
+                options: {
+                  maxRetentionTime: 24 * 60
+                }
+              }
+            }
+          },
+          {
+            urlPattern: ({ request }) => request.url.includes('/api/') && request.method === 'GET',
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'api-cache-fallback',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24
               }
             }
           }

@@ -33,7 +33,12 @@ const DEFAULT_SETTINGS = {
   kitchen_printer_name: '',
   backup_frequency: 'daily',
   enable_multi_currency: false,
-  default_payment_method: 'cash'
+  default_payment_method: 'cash',
+  enable_mobile_money: true,
+  mobile_money_paybill: '123456',
+  mobile_money_account_name: 'XYZ HOTEL',
+  enable_m_pesa: true,
+  enable_airtel_money: false
 };
 
 // Ensure settings table exists

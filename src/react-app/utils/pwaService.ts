@@ -11,6 +11,8 @@ export class PWAService {
   private isInstallPromptShown = false;
   private installListeners: Set<(canInstall: boolean) => void> = new Set();
   private updateListeners: Set<(hasUpdate: boolean) => void> = new Set();
+  private connectivityListeners: Set<(isOnline: boolean) => void> = new Set();
+  private syncListeners: Set<(syncData: any) => void> = new Set();
 
   static getInstance(): PWAService {
     if (!PWAService.instance) {
@@ -49,6 +51,60 @@ export class PWAService {
         this.notifyUpdateListeners(true);
       });
     }
+
+    // Initialize offline DB and sync listeners
+    this.initializeOfflineSync();
+  }
+
+  private initializeOfflineSync() {
+    // Listen for connectivity changes
+    window.addEventListener('online', () => {
+      this.logEvent('app_online');
+      this.notifyConnectivityListeners(true);
+      this.triggerOfflineSync();
+    });
+
+    window.addEventListener('offline', () => {
+      this.logEvent('app_offline');
+      this.notifyConnectivityListeners(false);
+    });
+
+    // Initialize offline DB
+    import('./offlineDB').then(({ offlineDB }) => {
+      offlineDB.initialize().catch(err => {
+        console.error('Failed to initialize offline DB:', err);
+      });
+    });
+  }
+
+  private triggerOfflineSync() {
+    import('./offlineQueue').then(({ offlineQueue }) => {
+      offlineQueue.syncPendingOrders().then(result => {
+        this.notifySyncListeners(result);
+      }).catch(err => {
+        console.error('Offline sync error:', err);
+      });
+    });
+  }
+
+  private notifyConnectivityListeners(isOnline: boolean) {
+    this.connectivityListeners.forEach(listener => {
+      try {
+        listener(isOnline);
+      } catch (error) {
+        console.error('Error in connectivity listener:', error);
+      }
+    });
+  }
+
+  private notifySyncListeners(syncData: any) {
+    this.syncListeners.forEach(listener => {
+      try {
+        listener(syncData);
+      } catch (error) {
+        console.error('Error in sync listener:', error);
+      }
+    });
   }
 
   // Environment detection
@@ -228,6 +284,51 @@ export class PWAService {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
+  }
+
+  onOfflineSync(callback: (syncData: any) => void): () => void {
+    this.syncListeners.add(callback);
+    return () => {
+      this.syncListeners.delete(callback);
+    };
+  }
+
+  onConnectivityStatusChange(callback: (isOnline: boolean) => void): () => void {
+    this.connectivityListeners.add(callback);
+    callback(this.isOnline());
+    return () => {
+      this.connectivityListeners.delete(callback);
+    };
+  }
+
+  async initializeOfflineDB(): Promise<boolean> {
+    try {
+      const { offlineDB } = await import('./offlineDB');
+      return await offlineDB.initialize();
+    } catch (error) {
+      console.error('Failed to initialize offline DB:', error);
+      return false;
+    }
+  }
+
+  async syncOfflineData(): Promise<any> {
+    try {
+      const { offlineQueue } = await import('./offlineQueue');
+      return await offlineQueue.syncPendingOrders();
+    } catch (error) {
+      console.error('Failed to sync offline data:', error);
+      throw error;
+    }
+  }
+
+  async getOfflineQueueStats(): Promise<any> {
+    try {
+      const { offlineQueue } = await import('./offlineQueue');
+      return await offlineQueue.getQueueStats();
+    } catch (error) {
+      console.error('Failed to get offline queue stats:', error);
+      return { pendingOrders: 0, syncedOrders: 0, failedOrders: 0 };
+    }
   }
 }
 

@@ -90,6 +90,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('pos_user', JSON.stringify(foundUser));
       localStorage.setItem('pos_token', newToken);
 
+      try {
+        const { offlineDB } = await import('../utils/offlineDB');
+        await offlineDB.cacheUser({
+          id: foundUser.id,
+          username: foundUser.username,
+          name: foundUser.name,
+          role: foundUser.role,
+          cachedAt: Date.now(),
+          sessionId: `session-${Date.now()}`
+        });
+        if (IS_DEVELOPMENT) {
+          console.log('💾 User cached for offline access');
+        }
+      } catch (error) {
+        console.warn('Could not cache user for offline access:', error);
+      }
+
       if (IS_DEVELOPMENT) {
         console.log('📍 Role check:', foundUser.role);
         console.log('⚙️ Role type:', typeof foundUser.role);
@@ -137,10 +154,96 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       
       if (error.name === 'AbortError') {
+        try {
+          const { offlineDB } = await import('../utils/offlineDB');
+          const cachedUser = await offlineDB.getCachedUser(username);
+          
+          if (cachedUser && navigator.onLine === false) {
+            if (IS_DEVELOPMENT) {
+              console.log('🔓 Using offline cached user:', username);
+            }
+            
+            setUser({
+              id: cachedUser.id,
+              username: cachedUser.username,
+              name: cachedUser.name,
+              role: cachedUser.role as any,
+              employee_id: '',
+              is_active: true
+            });
+            setToken(`offline-token-${Date.now()}`);
+            localStorage.setItem('offline_mode', 'true');
+            
+            const role = cachedUser.role?.toLowerCase();
+            switch (role) {
+              case 'superadmin':
+                navigate('/admin?tab=monitoring');
+                break;
+              case 'admin':
+              case 'manager':
+                navigate('/admin');
+                break;
+              default:
+                navigate('/pos');
+                break;
+            }
+            
+            return { 
+              success: true, 
+              message: `Logged in offline (${cachedUser.name})` 
+            };
+          }
+        } catch (offlineError) {
+          console.error('Offline login attempt failed:', offlineError);
+        }
+        
         return { success: false, message: 'Login request timed out. Please try again.' };
       }
       
-      if (error.message?.includes('fetch')) {
+      if (error.message?.includes('fetch') || !navigator.onLine) {
+        try {
+          const { offlineDB } = await import('../utils/offlineDB');
+          const cachedUser = await offlineDB.getCachedUser(username);
+          
+          if (cachedUser) {
+            if (IS_DEVELOPMENT) {
+              console.log('🔓 Using offline cached user:', username);
+            }
+            
+            setUser({
+              id: cachedUser.id,
+              username: cachedUser.username,
+              name: cachedUser.name,
+              role: cachedUser.role as any,
+              employee_id: '',
+              is_active: true
+            });
+            setToken(`offline-token-${Date.now()}`);
+            localStorage.setItem('offline_mode', 'true');
+            
+            const role = cachedUser.role?.toLowerCase();
+            switch (role) {
+              case 'superadmin':
+                navigate('/admin?tab=monitoring');
+                break;
+              case 'admin':
+              case 'manager':
+                navigate('/admin');
+                break;
+              default:
+                navigate('/pos');
+                break;
+            }
+            
+            return { 
+              success: true, 
+              message: `Logged in offline (${cachedUser.name})` 
+            };
+          }
+        } catch (offlineError) {
+          console.error('Offline login attempt failed:', offlineError);
+        }
+        
         return { success: false, message: 'Cannot connect to server. Please check your internet connection.' };
       }
       

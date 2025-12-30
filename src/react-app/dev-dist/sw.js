@@ -67,7 +67,7 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-f87553f6'], (function (workbox) { 'use strict';
+define(['./workbox-397daa5e'], (function (workbox) { 'use strict';
 
   self.skipWaiting();
   workbox.clientsClaim();
@@ -79,7 +79,7 @@ define(['./workbox-f87553f6'], (function (workbox) { 'use strict';
    */
   workbox.precacheAndRoute([{
     "url": "index.html",
-    "revision": "0.k6ofrr1m59o"
+    "revision": "0.s58m460mas"
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html"), {
@@ -99,6 +99,23 @@ define(['./workbox-f87553f6'], (function (workbox) { 'use strict';
     plugins: [new workbox.ExpirationPlugin({
       maxEntries: 100,
       maxAgeSeconds: 3600
+    })]
+  }), 'GET');
+  workbox.registerRoute(({
+    request
+  }) => request.url.includes("/api/orders") && request.method === "POST", new workbox.NetworkOnly({
+    "cacheName": "api-post-cache",
+    plugins: [new workbox.BackgroundSyncPlugin("order-queue", {
+      maxRetentionTime: 1440
+    })]
+  }), 'GET');
+  workbox.registerRoute(({
+    request
+  }) => request.url.includes("/api/") && request.method === "GET", new workbox.StaleWhileRevalidate({
+    "cacheName": "api-cache-fallback",
+    plugins: [new workbox.ExpirationPlugin({
+      maxEntries: 50,
+      maxAgeSeconds: 86400
     })]
   }), 'GET');
 
